@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~  Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com) All Rights Reserved.
+ ~
+ ~  WSO2 LLC. licenses this file to you under the Apache License,
+ ~  Version 2.0 (the "License"); you may not use this file except
+ ~  in compliance with the License.
+ ~  You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~  Unless required by applicable law or agreed to in writing,
+ ~  software distributed under the License is distributed on an
+ ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~  KIND, either express or implied.  See the License for the
+ ~  specific language governing permissions and limitations
+ ~  under the License.
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <groupId>org.wso2.integration.connector</groupId>
+  <artifactId>mi-connector-asb</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+
+  <name>WSO2 Carbon - Azure Service Bus Connector</name>
+  <url>http://wso2.org</url>
+  <packaging>jar</packaging>
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <connector.name>asb</connector.name>
+    <synapse.version>4.0.0-wso2v186</synapse.version>
+    <axiom.version>1.2.11-wso2v21</axiom.version>
+    <carbon.mediation.version>4.7.160</carbon.mediation.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.synapse</groupId>
+      <artifactId>synapse-core</artifactId>
+      <version>${synapse.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.synapse</groupId>
+      <artifactId>synapse-commons</artifactId>
+      <version>${synapse.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wso2.carbon.mediation</groupId>
+      <artifactId>org.wso2.carbon.connector.core</artifactId>
+      <version>${carbon.mediation.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ws.commons.axiom</groupId>
+      <artifactId>axiom-api</artifactId>
+      <version>${axiom.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <scm>
+    <connection>scm:git:https://github.com/wso2-extensions/mi-connector-asb.git</connection>
+    <url>https://github.com/wso2-extensions/mi-connector-asb.git</url>
+    <developerConnection>scm:git:https://github.com/wso2-extensions/mi-connector-asb</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>build-connector</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <finalName>${connector.name}-connector-${project.version}</finalName>
+              <appendAssemblyId>false</appendAssemblyId>
+              <filters>
+                <filter>src/main/assembly/filter.properties</filter>
+              </filters>
+              <descriptors>
+                <descriptor>src/main/assembly/assemble-connector.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <repository>
+      <id>wso2-nexus</id>
+      <name>WSO2 internal Repository</name>
+      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>ignore</checksumPolicy>
+      </releases>
+    </repository>
+    <repository>
+      <id>wso2.releases</id>
+      <name>WSO2 internal Repository</name>
+      <url>https://maven.wso2.org/nexus/content/repositories/releases/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>ignore</checksumPolicy>
+      </releases>
+    </repository>
+    <repository>
+      <id>wso2.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://maven.wso2.org/nexus/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>nexus-releases</id>
+      <name>WSO2 Release Distribution Repository</name>
+      <url>https://maven.wso2.org/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>wso2.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://maven.wso2.org/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>
