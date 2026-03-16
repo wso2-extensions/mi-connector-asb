@@ -1,0 +1,14 @@
+{
+    "name": "Azure Service Bus",
+    "owner": "WSO2",
+    "product": "MI",
+    "category": "Cloud Services",
+    "documentationUrl": "https://mi.docs.wso2.com/en/4.4.0/",
+    "mavenGroupId": "org.wso2.integration.connector",
+    "mavenArtifactId": "mi-connector-asb",
+    "description": "Connector for Azure Service Bus",
+    "status": "Active",
+    "rank": 5,
+    "type": "Connector",
+    "releases": []
+}
