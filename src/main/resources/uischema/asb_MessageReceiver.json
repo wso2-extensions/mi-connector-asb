@@ -1,0 +1,275 @@
+{
+  "connectorName": "asb",
+  "connectionName": "asb_MessageReceiver",
+  "title": "Connection Config for asb_MessageReceiver connection",
+  "help": "<h1>asb_MessageReceiver Connection</h1> <b>Ballerina Service Bus connector provides the capability to access Azure Service Bus SDK.\nService Bus API provides data access to highly reliable queues and publish/subscribe topics of Azure Service Bus with deep feature capabilities.</b>",
+  "elements": [
+    {
+      "type": "attribute",
+      "value": {
+        "name": "connectionName",
+        "displayName": "Connection Name",
+        "inputType": "string",
+        "defaultValue": "asb_MessageReceiver_connection_1",
+        "required": "true",
+        "helpTip": "The name for the asb_MessageReceiver connection",
+        "validation": "nameWithoutSpecialCharactors"
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Basic",
+              "collapsed": false,
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "connectionString",
+                    "displayName": "connectionString",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": true,
+                    "helpTip": "",
+                    "validateType": "",
+                    "matchPattern": ""
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "entityConfigDataType",
+                    "displayName": "entityConfigDataType",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "TopicSubsConfig",
+                      "QueueConfig"
+                    ],
+                    "defaultValue": "TopicSubsConfig",
+                    "required": "true",
+                    "helpTip": ""
+                  }
+                },
+                {
+                  "type": "attributeGroup",
+                  "value": {
+                    "groupName": "Entity Config",
+                    "collapsed": false,
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "entityConfig_topicName",
+                          "displayName": "topicName",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": true,
+                          "helpTip": "",
+                          "validateType": "",
+                          "matchPattern": "",
+                          "enableCondition": [
+                            {
+                              "entityConfigDataType": "TopicSubsConfig"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "entityConfig_subscriptionName",
+                          "displayName": "subscriptionName",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": true,
+                          "helpTip": "",
+                          "validateType": "",
+                          "matchPattern": "",
+                          "enableCondition": [
+                            {
+                              "entityConfigDataType": "TopicSubsConfig"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "entityConfig_queueName",
+                          "displayName": "queueName",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": true,
+                          "helpTip": "",
+                          "validateType": "",
+                          "matchPattern": "",
+                          "enableCondition": [
+                            {
+                              "entityConfigDataType": "QueueConfig"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "receiveMode",
+                    "displayName": "receiveMode",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "PEEK_LOCK",
+                      "RECEIVE_AND_DELETE"
+                    ],
+                    "defaultValue": "PEEK_LOCK",
+                    "required": "false",
+                    "helpTip": ""
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "maxAutoLockRenewDuration",
+                    "displayName": "maxAutoLockRenewDuration",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": false,
+                    "helpTip": "",
+                    "validateType": "regex",
+                    "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "enable_amqpRetryOptions",
+                    "displayName": "Configure amqpRetryOptions",
+                    "inputType": "boolean",
+                    "defaultValue": "false",
+                    "required": false,
+                    "helpTip": "Enable to configure amqpRetryOptions settings",
+                    "validateType": "",
+                    "matchPattern": ""
+                  }
+                },
+                {
+                  "type": "attributeGroup",
+                  "value": {
+                    "groupName": "Amqp Retry Options",
+                    "collapsed": false,
+                    "enableCondition": [
+                      {
+                        "enable_amqpRetryOptions": "true"
+                      }
+                    ],
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_maxRetries",
+                          "displayName": "maxRetries",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_delay",
+                          "displayName": "delay",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+(\\.\\d+)?|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_maxDelay",
+                          "displayName": "maxDelay",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+(\\.\\d+)?|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_tryTimeout",
+                          "displayName": "tryTimeout",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+(\\.\\d+)?|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_retryMode",
+                          "displayName": "retryMode",
+                          "inputType": "combo",
+                          "comboValues": [
+                            "EXPONENTIAL",
+                            "FIXED"
+                          ],
+                          "defaultValue": "EXPONENTIAL",
+                          "required": "false",
+                          "helpTip": "",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

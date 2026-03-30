@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<template xmlns="http://ws.apache.org/ns/synapse" name="Administrator_createTopic">
+    <parameter name="responseVariable" description="The target variable in which the output of the operation will be stored"/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the output payload of the operation"/>
+    <parameter name="topicName" description=""/>
+    <parameter name="autoDeleteOnIdle_seconds" description=""/>
+    <parameter name="autoDeleteOnIdle_nanoseconds" description=""/>
+    <parameter name="defaultMessageTimeToLive_seconds" description=""/>
+    <parameter name="defaultMessageTimeToLive_nanoseconds" description=""/>
+    <parameter name="duplicateDetectionHistoryTimeWindow_seconds" description=""/>
+    <parameter name="duplicateDetectionHistoryTimeWindow_nanoseconds" description=""/>
+    <parameter name="lockDuration_seconds" description=""/>
+    <parameter name="lockDuration_nanoseconds" description=""/>
+    <parameter name="maxDeliveryCount" description=""/>
+    <parameter name="maxMessageSizeInKilobytes" description=""/>
+    <parameter name="maxSizeInMegabytes" description=""/>
+    <parameter name="status" description=""/>
+    <parameter name="userMetadata" description=""/>
+    <parameter name="enableBatchedOperations" description=""/>
+    <parameter name="deadLetteringOnMessageExpiration" description=""/>
+    <parameter name="requiresDuplicateDetection" description=""/>
+    <parameter name="enablePartitioning" description=""/>
+    <parameter name="requiresSession" description=""/>
+    <parameter name="supportOrdering" description=""/>
+    <sequence>
+        <property name="param0" value="topicName"/>
+        <property name="paramType0" value="string"/>
+        <property name="param1" value="topicOptions"/>
+        <property name="paramType1" value="record"/>
+        <property name="param1_recordName" value="CreateTopicOptions" />
+        <property name="topicOptions_param0" value="autoDeleteOnIdle.seconds"/>
+        <property name="topicOptions_paramType0" value="int"/>
+        <property name="topicOptions_param1" value="autoDeleteOnIdle.nanoseconds"/>
+        <property name="topicOptions_paramType1" value="int"/>
+        <property name="topicOptions_param2" value="defaultMessageTimeToLive.seconds"/>
+        <property name="topicOptions_paramType2" value="int"/>
+        <property name="topicOptions_param3" value="defaultMessageTimeToLive.nanoseconds"/>
+        <property name="topicOptions_paramType3" value="int"/>
+        <property name="topicOptions_param4" value="duplicateDetectionHistoryTimeWindow.seconds"/>
+        <property name="topicOptions_paramType4" value="int"/>
+        <property name="topicOptions_param5" value="duplicateDetectionHistoryTimeWindow.nanoseconds"/>
+        <property name="topicOptions_paramType5" value="int"/>
+        <property name="topicOptions_param6" value="lockDuration.seconds"/>
+        <property name="topicOptions_paramType6" value="int"/>
+        <property name="topicOptions_param7" value="lockDuration.nanoseconds"/>
+        <property name="topicOptions_paramType7" value="int"/>
+        <property name="topicOptions_param8" value="maxDeliveryCount"/>
+        <property name="topicOptions_paramType8" value="int"/>
+        <property name="topicOptions_param9" value="maxMessageSizeInKilobytes"/>
+        <property name="topicOptions_paramType9" value="int"/>
+        <property name="topicOptions_param10" value="maxSizeInMegabytes"/>
+        <property name="topicOptions_paramType10" value="int"/>
+        <property name="topicOptions_param11" value="status"/>
+        <property name="topicOptions_paramType11" value="enum"/>
+        <property name="topicOptions_param12" value="userMetadata"/>
+        <property name="topicOptions_paramType12" value="string"/>
+        <property name="topicOptions_param13" value="enableBatchedOperations"/>
+        <property name="topicOptions_paramType13" value="boolean"/>
+        <property name="topicOptions_param14" value="deadLetteringOnMessageExpiration"/>
+        <property name="topicOptions_paramType14" value="boolean"/>
+        <property name="topicOptions_param15" value="requiresDuplicateDetection"/>
+        <property name="topicOptions_paramType15" value="boolean"/>
+        <property name="topicOptions_param16" value="enablePartitioning"/>
+        <property name="topicOptions_paramType16" value="boolean"/>
+        <property name="topicOptions_param17" value="requiresSession"/>
+        <property name="topicOptions_paramType17" value="boolean"/>
+        <property name="topicOptions_param18" value="supportOrdering"/>
+        <property name="topicOptions_paramType18" value="boolean"/>
+        <property name="paramSize" value="2"/>
+        <property name="paramFunctionName" value="createTopic"/>
+        <property name="returnType" value="union"/>
+        <property name="functionType" value="REMOTE"/>
+        <class name="io.ballerina.stdlib.mi.BalConnectorFunction">
+            <property name="orgName" value="ballerinax"/>
+            <property name="moduleName" value="asb"/>
+            <property name="version" value="3"/>
+        </class>
+    </sequence>
+</template>

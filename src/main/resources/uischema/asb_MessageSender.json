@@ -1,0 +1,197 @@
+{
+  "connectorName": "asb",
+  "connectionName": "asb_MessageSender",
+  "title": "Connection Config for asb_MessageSender connection",
+  "help": "<h1>asb_MessageSender Connection</h1> <b>Ballerina Service Bus connector provides the capability to access Azure Service Bus SDK.\nService Bus API provides data access to highly reliable queues and publish/subscribe topics of Azure Service Bus with deep feature capabilities.</b>",
+  "elements": [
+    {
+      "type": "attribute",
+      "value": {
+        "name": "connectionName",
+        "displayName": "Connection Name",
+        "inputType": "string",
+        "defaultValue": "asb_MessageSender_connection_1",
+        "required": "true",
+        "helpTip": "The name for the asb_MessageSender connection",
+        "validation": "nameWithoutSpecialCharactors"
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Basic",
+              "collapsed": false,
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "entityType",
+                    "displayName": "entityType",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "topic",
+                      "queue"
+                    ],
+                    "defaultValue": "topic",
+                    "required": "true",
+                    "helpTip": ""
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "topicOrQueueName",
+                    "displayName": "topicOrQueueName",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": true,
+                    "helpTip": "",
+                    "validateType": "",
+                    "matchPattern": ""
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "connectionString",
+                    "displayName": "connectionString",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": true,
+                    "helpTip": "",
+                    "validateType": "",
+                    "matchPattern": ""
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "enable_amqpRetryOptions",
+                    "displayName": "Configure amqpRetryOptions",
+                    "inputType": "boolean",
+                    "defaultValue": "false",
+                    "required": false,
+                    "helpTip": "Enable to configure amqpRetryOptions settings",
+                    "validateType": "",
+                    "matchPattern": ""
+                  }
+                },
+                {
+                  "type": "attributeGroup",
+                  "value": {
+                    "groupName": "Amqp Retry Options",
+                    "collapsed": false,
+                    "enableCondition": [
+                      {
+                        "enable_amqpRetryOptions": "true"
+                      }
+                    ],
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_maxRetries",
+                          "displayName": "maxRetries",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_delay",
+                          "displayName": "delay",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+(\\.\\d+)?|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_maxDelay",
+                          "displayName": "maxDelay",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+(\\.\\d+)?|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_tryTimeout",
+                          "displayName": "tryTimeout",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+(\\.\\d+)?|\\$\\{.+\\})$",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "amqpRetryOptions_retryMode",
+                          "displayName": "retryMode",
+                          "inputType": "combo",
+                          "comboValues": [
+                            "EXPONENTIAL",
+                            "FIXED"
+                          ],
+                          "defaultValue": "EXPONENTIAL",
+                          "required": "false",
+                          "helpTip": "",
+                          "enableCondition": [
+                            {
+                              "enable_amqpRetryOptions": "true"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

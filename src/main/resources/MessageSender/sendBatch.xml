@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<template xmlns="http://ws.apache.org/ns/synapse" name="MessageSender_sendBatch">
+    <parameter name="responseVariable" description="The target variable in which the output of the operation will be stored"/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the output payload of the operation"/>
+    <parameter name="messageCount" description=""/>
+    <parameter name="messagesInputMode" description="Input mode for messages: Table or JSON"/>
+    <parameter name="messagesJson" description="JSON array input for messages"/>
+    <parameter name="messages" description=""/>
+    <sequence>
+        <property name="param0" value="messageBatch"/>
+        <property name="paramType0" value="record"/>
+        <property name="param0_recordName" value="MessageBatch" />
+        <property name="param0_recordOrg" value="ballerinax" />
+        <property name="param0_recordModule" value="asb" />
+        <property name="messageBatch_param0" value="messageCount"/>
+        <property name="messageBatch_paramType0" value="int"/>
+        <property name="messageBatch_param1" value="messages"/>
+        <property name="messageBatch_paramType1" value="array"/>
+        <property name="messageBatch_arrayElementType1" value="record"/>
+        <property name="messageBatch_arrayRecordFields1" value="body,contentType,messageId,to,replyTo,replyToSessionId,label,sessionId,correlationId,partitionKey,timeToLive,sequenceNumber,lockToken,applicationProperties,deliveryCount,enqueuedTime,enqueuedSequenceNumber,deadLetterErrorDescription,deadLetterReason,deadLetterSource,state"/>
+        <property name="messageBatch_param1_dualMode" value="true"/>
+        <property name="messageBatch_param1_inputModeField" value="messagesInputMode"/>
+        <property name="messageBatch_param1_jsonField" value="messagesJson"/>
+        <property name="paramSize" value="1"/>
+        <property name="paramFunctionName" value="sendBatch"/>
+        <property name="returnType" value="union"/>
+        <property name="functionType" value="REMOTE"/>
+        <class name="io.ballerina.stdlib.mi.BalConnectorFunction">
+            <property name="orgName" value="ballerinax"/>
+            <property name="moduleName" value="asb"/>
+            <property name="version" value="3"/>
+        </class>
+    </sequence>
+</template>
