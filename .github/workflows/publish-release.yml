@@ -61,8 +61,8 @@ jobs:
 
       - name: Build artifacts
         env:
-          packageUser: ${{ secrets.WSO2_INTEGRATION_BOT_USERNAME }}
-          packagePAT: ${{ secrets.WSO2_INTEGRATION_BOT_TOKEN }}
+          packageUser: ${{ secrets.PACKAGE_USER }}
+          packagePAT: ${{ secrets.PACKAGE_PAT }}
         run: |
           mvn clean install
 
