@@ -60,6 +60,9 @@ jobs:
           git config --global user.email ${{ secrets.WSO2_INTEGRATION_BOT_EMAIL }}
 
       - name: Build artifacts
+        env:
+          packageUser: ${{ secrets.WSO2_INTEGRATION_BOT_USERNAME }}
+          packagePAT: ${{ secrets.WSO2_INTEGRATION_BOT_TOKEN }}
         run: |
           mvn clean install
 
