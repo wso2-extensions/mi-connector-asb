@@ -183,6 +183,27 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-connector-to-tests</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <copy file="${project.build.directory}/${connector.name}-connector-${project.version}.zip"
+                      todir="${project.basedir}/tests/src/main/wso2mi/resources/connectors"
+                      overwrite="true"/>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -241,4 +262,82 @@
       <url>https://maven.wso2.org/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
+  <profiles>
+    <profile>
+      <id>integration-test</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+              <!-- Step 1: Build docker image -->
+              <execution>
+                <id>build-docker-image</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>mvn</executable>
+                  <workingDirectory>${project.basedir}/tests</workingDirectory>
+                  <arguments>
+                    <argument>clean</argument>
+                    <argument>install</argument>
+                    <argument>-Pdocker</argument>
+                    <argument>-DskipTests</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <!-- Step 2: Start MI container -->
+              <execution>
+                <id>start-mi-container</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>docker-compose</executable>
+                  <workingDirectory>${project.basedir}/tests</workingDirectory>
+                  <arguments>
+                    <argument>up</argument>
+                    <argument>-d</argument>
+                    <argument>--wait</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <!-- Step 3: Run API tests -->
+              <execution>
+                <id>run-integration-tests</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${project.basedir}/tests/test-apis.sh</executable>
+                  <workingDirectory>${project.basedir}/tests</workingDirectory>
+                </configuration>
+              </execution>
+              <!-- Step 4: Stop MI container -->
+              <execution>
+                <id>stop-mi-container</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>docker-compose</executable>
+                  <workingDirectory>${project.basedir}/tests</workingDirectory>
+                  <arguments>
+                    <argument>down</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

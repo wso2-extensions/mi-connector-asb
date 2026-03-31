@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/admin" name="admin" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/createTopic">
+        <inSequence>
+            <asb.Administrator_createTopic configKey="asb_admin_connection">
+    <responseVariable >asb_Administrator_createTopic_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <topicName >{${payload.topicName}}</topicName>
+    <autoDeleteOnIdle_seconds ></autoDeleteOnIdle_seconds>
+    <autoDeleteOnIdle_nanoseconds ></autoDeleteOnIdle_nanoseconds>
+    <defaultMessageTimeToLive_seconds ></defaultMessageTimeToLive_seconds>
+    <defaultMessageTimeToLive_nanoseconds ></defaultMessageTimeToLive_nanoseconds>
+    <duplicateDetectionHistoryTimeWindow_seconds ></duplicateDetectionHistoryTimeWindow_seconds>
+    <duplicateDetectionHistoryTimeWindow_nanoseconds ></duplicateDetectionHistoryTimeWindow_nanoseconds>
+    <lockDuration_seconds ></lockDuration_seconds>
+    <lockDuration_nanoseconds ></lockDuration_nanoseconds>
+    <maxDeliveryCount ></maxDeliveryCount>
+    <maxMessageSizeInKilobytes ></maxMessageSizeInKilobytes>
+    <maxSizeInMegabytes ></maxSizeInMegabytes>
+    <status >Unknown</status>
+    <userMetadata ></userMetadata>
+    <enableBatchedOperations ></enableBatchedOperations>
+    <deadLetteringOnMessageExpiration ></deadLetteringOnMessageExpiration>
+    <requiresDuplicateDetection ></requiresDuplicateDetection>
+    <enablePartitioning ></enablePartitioning>
+    <requiresSession ></requiresSession>
+    <supportOrdering ></supportOrdering>
+            </asb.Administrator_createTopic>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/getTopic">
+        <inSequence>
+            <asb.Administrator_getTopic configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_getTopic_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.queryParams.topicName}}</topicName>
+            </asb.Administrator_getTopic>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="PUT" uri-template="/updateTopic">
+        <inSequence>
+            <asb.Administrator_updateTopic configKey="asb_admin_connection">
+    <responseVariable >asb_Administrator_updateTopic_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <topicName >{${payload.topicName}}</topicName>
+    <autoDeleteOnIdle_seconds >1000</autoDeleteOnIdle_seconds>
+    <autoDeleteOnIdle_nanoseconds ></autoDeleteOnIdle_nanoseconds>
+    <defaultMessageTimeToLive_seconds ></defaultMessageTimeToLive_seconds>
+    <defaultMessageTimeToLive_nanoseconds ></defaultMessageTimeToLive_nanoseconds>
+    <duplicateDetectionHistoryTimeWindow_seconds ></duplicateDetectionHistoryTimeWindow_seconds>
+    <duplicateDetectionHistoryTimeWindow_nanoseconds ></duplicateDetectionHistoryTimeWindow_nanoseconds>
+    <maxDeliveryCount ></maxDeliveryCount>
+    <maxMessageSizeInKilobytes ></maxMessageSizeInKilobytes>
+    <maxSizeInMegabytes ></maxSizeInMegabytes>
+    <status >Unknown</status>
+    <userMetadata ></userMetadata>
+    <enableBatchedOperations ></enableBatchedOperations>
+    <deadLetteringOnMessageExpiration ></deadLetteringOnMessageExpiration>
+    <requiresDuplicateDetection ></requiresDuplicateDetection>
+    <enablePartitioning ></enablePartitioning>
+    <requiresSession ></requiresSession>
+    <supportOrdering ></supportOrdering>
+            </asb.Administrator_updateTopic>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/listTopics">
+        <inSequence>
+            <asb.Administrator_listTopics configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_listTopics_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.Administrator_listTopics>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="DELETE" uri-template="/deleteTopic/{topicName}">
+        <inSequence>
+            <asb.Administrator_deleteTopic configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_deleteTopic_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.pathParams.topicName}}</topicName>
+            </asb.Administrator_deleteTopic>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" uri-template="/createSubscription">
+        <inSequence>
+            <asb.Administrator_createSubscription configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_createSubscription_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${payload.topicName}}</topicName>
+                <subscriptionName>{${payload.subsName}}</subscriptionName>
+                <autoDeleteOnIdle_seconds></autoDeleteOnIdle_seconds>
+                <autoDeleteOnIdle_nanoseconds></autoDeleteOnIdle_nanoseconds>
+                <enableBatchedOperations></enableBatchedOperations>
+                <deadLetteringOnMessageExpiration></deadLetteringOnMessageExpiration>
+                <defaultMessageTimeToLive_seconds></defaultMessageTimeToLive_seconds>
+                <defaultMessageTimeToLive_nanoseconds></defaultMessageTimeToLive_nanoseconds>
+                <deadLetteringOnFilterEvaluationExceptions></deadLetteringOnFilterEvaluationExceptions>
+                <forwardDeadLetteredMessagesTo></forwardDeadLetteredMessagesTo>
+                <forwardTo></forwardTo>
+                <lockDuration_seconds></lockDuration_seconds>
+                <lockDuration_nanoseconds></lockDuration_nanoseconds>
+                <maxDeliveryCount></maxDeliveryCount>
+                <requiresSession></requiresSession>
+                <status>Unknown</status>
+                <userMetadata></userMetadata>
+            </asb.Administrator_createSubscription>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/getSubscription?topicName={topicName}&amp;subName={subName}">
+        <inSequence>
+            <asb.Administrator_getSubscription configKey="asb_admin_connection">
+    <responseVariable >asb_Administrator_getSubscription_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <topicName >{${params.queryParams.topicName}}</topicName>
+    <subscriptionName >{${params.queryParams.subName}}</subscriptionName>
+            </asb.Administrator_getSubscription>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="PUT" uri-template="/updateSubscription">
+        <inSequence>
+        <asb.Administrator_updateSubscription configKey="asb_admin_connection">
+    <responseVariable >asb_Administrator_updateSubscription_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <topicName >{${payload.topicName}}</topicName>
+    <subscriptionName >{${payload.subscriptionName}}</subscriptionName>
+    <autoDeleteOnIdle_seconds >{${payload.idleSecond}}</autoDeleteOnIdle_seconds>
+    <autoDeleteOnIdle_nanoseconds >{${payload.idleNanoSecond}}</autoDeleteOnIdle_nanoseconds>
+    <defaultMessageTimeToLive_seconds ></defaultMessageTimeToLive_seconds>
+    <defaultMessageTimeToLive_nanoseconds ></defaultMessageTimeToLive_nanoseconds>
+    <deadLetteringOnMessageExpiration ></deadLetteringOnMessageExpiration>
+    <deadLetteringOnFilterEvaluationExceptions ></deadLetteringOnFilterEvaluationExceptions>
+    <enableBatchedOperations ></enableBatchedOperations>
+    <forwardDeadLetteredMessagesTo ></forwardDeadLetteredMessagesTo>
+    <forwardTo ></forwardTo>
+    <lockDuration_seconds ></lockDuration_seconds>
+    <lockDuration_nanoseconds ></lockDuration_nanoseconds>
+    <maxDeliveryCount ></maxDeliveryCount>
+    <status >Active</status>
+    <userMetadata ></userMetadata>
+            </asb.Administrator_updateSubscription>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/listSubscriptions/{topicName}">
+        <inSequence>
+            <asb.Administrator_listSubscriptions configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_listSubscriptions_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.pathParams.topicName}}</topicName>
+            </asb.Administrator_listSubscriptions>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="DELETE" uri-template="/deleteSubscription?topicName={topicName}&amp;subName={subName}">
+        <inSequence>
+            <asb.Administrator_deleteSubscription configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_deleteSubscription_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.queryParams.topicName}}</topicName>
+                <subscriptionName>{${params.queryParams.subName}}</subscriptionName>
+            </asb.Administrator_deleteSubscription>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/topicExists/{topicName}">
+        <inSequence>
+            <asb.Administrator_topicExists configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_topicExists_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.pathParams.topicName}}</topicName>
+            </asb.Administrator_topicExists>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/subscriptionExists?topicName={topicName}&amp;subName={subName}">
+        <inSequence>
+            <asb.Administrator_subscriptionExists configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_subscriptionExists_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.queryParams.topicName}}</topicName>
+                <subscriptionName>{${params.queryParams.subName}}</subscriptionName>
+            </asb.Administrator_subscriptionExists>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" uri-template="/createRule">
+        <inSequence>
+            <asb.Administrator_createRule configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_createRule_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${payload.topicName}}</topicName>
+                <subscriptionName>{${payload.subName}}</subscriptionName>
+                <ruleName>{${payload.ruleName}}</ruleName>
+                <rule_filter>{${payload.filter}}</rule_filter>
+                <rule_action>{${payload.action}}</rule_action>
+            </asb.Administrator_createRule>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/getRule?topicName={topicName}&amp;subName={subName}&amp;ruleName={ruleName}">
+        <inSequence>
+            <asb.Administrator_getRule configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_getRule_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.queryParams.topicName}}</topicName>
+                <subscriptionName>{${params.queryParams.subName}}</subscriptionName>
+                <ruleName>{${params.queryParams.ruleName}}</ruleName>
+            </asb.Administrator_getRule>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="PUT" uri-template="/updateRule">
+        <inSequence>
+            <asb.Administrator_updateRule configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_updateRule_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${payload.topicName}}</topicName>
+                <subscriptionName>{${payload.subName}}</subscriptionName>
+                <ruleName>{${payload.ruleName}}</ruleName>
+                <rule_filter>{${payload.filter}}</rule_filter>
+                <rule_action>{${payload.action}}</rule_action>
+            </asb.Administrator_updateRule>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/listRules?topicName={topicName}&amp;subName={subName}">
+        <inSequence>
+            <asb.Administrator_listRules configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_listRules_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <topicName>{${params.queryParams.topicName}}</topicName>
+                <subscriptionName>{${params.queryParams.subName}}</subscriptionName>
+            </asb.Administrator_listRules>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="DELETE" uri-template="/deleteRule?topicName={topicName}&amp;subName={subName}&amp;ruleName={ruleName}">
+        <inSequence>
+        <asb.Administrator_deleteRule configKey="asb_admin_connection">
+    <responseVariable >asb_Administrator_deleteRule_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <topicName >{${params.queryParams.topicName}}</topicName>
+    <subscriptionName >{${params.queryParams.subName}}</subscriptionName>
+    <ruleName >{${params.queryParams.ruleName}}</ruleName>
+            </asb.Administrator_deleteRule>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" uri-template="/createQueue">
+        <inSequence>
+        <asb.Administrator_createQueue configKey="asb_admin_connection">
+    <responseVariable >asb_Administrator_createQueue_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <queueName >{${payload.queueName}}</queueName>
+    <autoDeleteOnIdle_seconds ></autoDeleteOnIdle_seconds>
+    <autoDeleteOnIdle_nanoseconds ></autoDeleteOnIdle_nanoseconds>
+    <defaultMessageTimeToLive_seconds ></defaultMessageTimeToLive_seconds>
+    <defaultMessageTimeToLive_nanoseconds ></defaultMessageTimeToLive_nanoseconds>
+    <duplicateDetectionHistoryTimeWindow_seconds ></duplicateDetectionHistoryTimeWindow_seconds>
+    <duplicateDetectionHistoryTimeWindow_nanoseconds ></duplicateDetectionHistoryTimeWindow_nanoseconds>
+    <forwardDeadLetteredMessagesTo ></forwardDeadLetteredMessagesTo>
+    <forwardTo ></forwardTo>
+    <lockDuration_seconds ></lockDuration_seconds>
+    <lockDuration_nanoseconds ></lockDuration_nanoseconds>
+    <maxDeliveryCount ></maxDeliveryCount>
+    <maxMessageSizeInKilobytes ></maxMessageSizeInKilobytes>
+    <maxSizeInMegabytes ></maxSizeInMegabytes>
+    <status >Unknown</status>
+    <userMetadata ></userMetadata>
+    <enableBatchedOperations ></enableBatchedOperations>
+    <deadLetteringOnMessageExpiration ></deadLetteringOnMessageExpiration>
+    <requiresDuplicateDetection ></requiresDuplicateDetection>
+    <enablePartitioning ></enablePartitioning>
+    <requiresSession ></requiresSession>
+            </asb.Administrator_createQueue>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/getQueue/{queueName}">
+        <inSequence>
+            <asb.Administrator_getQueue configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_getQueue_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <queueName>{${params.pathParams.queueName}}</queueName>
+            </asb.Administrator_getQueue>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="PUT" uri-template="/updateQueue">
+        <inSequence>
+            <asb.Administrator_updateQueue configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_updateQueue_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <queueName>{${payload.queueName}}</queueName>
+                <autoDeleteOnIdle_seconds>{${payload.doiSeconds}}</autoDeleteOnIdle_seconds>
+                <autoDeleteOnIdle_nanoseconds></autoDeleteOnIdle_nanoseconds>
+                <defaultMessageTimeToLive_seconds></defaultMessageTimeToLive_seconds>
+                <defaultMessageTimeToLive_nanoseconds></defaultMessageTimeToLive_nanoseconds>
+                <duplicateDetectionHistoryTimeWindow_seconds></duplicateDetectionHistoryTimeWindow_seconds>
+                <duplicateDetectionHistoryTimeWindow_nanoseconds></duplicateDetectionHistoryTimeWindow_nanoseconds>
+                <forwardDeadLetteredMessagesTo></forwardDeadLetteredMessagesTo>
+                <forwardTo></forwardTo>
+                <lockDuration_seconds></lockDuration_seconds>
+                <lockDuration_nanoseconds></lockDuration_nanoseconds>
+                <maxDeliveryCount></maxDeliveryCount>
+                <maxMessageSizeInKilobytes></maxMessageSizeInKilobytes>
+                <maxSizeInMegabytes></maxSizeInMegabytes>
+                <status>Unknown</status>
+                <userMetadata></userMetadata>
+                <enableBatchedOperations></enableBatchedOperations>
+                <deadLetteringOnMessageExpiration></deadLetteringOnMessageExpiration>
+                <requiresDuplicateDetection></requiresDuplicateDetection>
+                <enablePartitioning></enablePartitioning>
+                <requiresSession></requiresSession>
+            </asb.Administrator_updateQueue>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/listQueues">
+        <inSequence>
+            <asb.Administrator_listQueues configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_listQueues_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.Administrator_listQueues>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="DELETE" uri-template="/deleteQueue?queueName={queueName}">
+        <inSequence>
+        <asb.Administrator_deleteQueue configKey="asb_admin_connection">
+    <responseVariable >asb_Administrator_deleteQueue_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <queueName >{${params.queryParams.queueName}}</queueName>
+            </asb.Administrator_deleteQueue>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/queueExists/{queueName}">
+        <inSequence>
+            <asb.Administrator_queueExists configKey="asb_admin_connection">
+                <responseVariable>asb_Administrator_queueExists_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <queueName>{${params.pathParams.queueName}}</queueName>
+            </asb.Administrator_queueExists>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+</api>

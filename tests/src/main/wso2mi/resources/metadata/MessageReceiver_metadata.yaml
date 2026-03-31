@@ -1,0 +1,10 @@
+---
+key: "MessageReceiver-1.0.0"
+name : "MessageReceiver"
+displayName : "MessageReceiver"
+description: "MessageReceiver"
+version: "1.0.0"
+serviceUrl: "https://{MI_HOST}:{MI_PORT}/messagereceiver"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
