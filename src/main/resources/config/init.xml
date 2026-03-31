@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<template name="init" onError="fault" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="name" description="Unique name the connection is identified by"/>
+    <parameter name="connectionType" description="Connection type"/>
+    <parameter name="connectionString" description=""/>
+    <parameter name="entityConfigDataType" description=""/>
+    <parameter name="entityConfig_topicName" description=""/>
+    <parameter name="entityConfig_subscriptionName" description=""/>
+    <parameter name="entityConfig_queueName" description=""/>
+    <parameter name="receiveMode" description=""/>
+    <parameter name="maxAutoLockRenewDuration" description=""/>
+    <parameter name="amqpRetryOptions_maxRetries" description=""/>
+    <parameter name="amqpRetryOptions_delay" description=""/>
+    <parameter name="amqpRetryOptions_maxDelay" description=""/>
+    <parameter name="amqpRetryOptions_tryTimeout" description=""/>
+    <parameter name="amqpRetryOptions_retryMode" description=""/>
+    <parameter name="entityType" description=""/>
+    <parameter name="topicOrQueueName" description=""/>
+    <sequence>
+        <property name="ASB_ADMINISTRATOR_objectTypeName" value="Administrator"/>
+        <property name="ASB_ADMINISTRATOR_paramSize" value="1"/>
+        <property name="ASB_ADMINISTRATOR_paramFunctionName" value="init"/>
+        <property name="ASB_ADMINISTRATOR_param0" value="connectionString"/>
+        <property name="ASB_ADMINISTRATOR_paramType0" value="string"/>
+
+        <property name="ASB_MESSAGERECEIVER_objectTypeName" value="MessageReceiver"/>
+        <property name="ASB_MESSAGERECEIVER_paramSize" value="1"/>
+        <property name="ASB_MESSAGERECEIVER_paramFunctionName" value="init"/>
+        <property name="ASB_MESSAGERECEIVER_param0" value="config"/>
+        <property name="ASB_MESSAGERECEIVER_paramType0" value="record"/>
+        <property name="ASB_MESSAGERECEIVER_param0_recordName" value="ASBServiceReceiverConfig"/>
+        <property name="ASB_MESSAGERECEIVER_param0_recordOrg" value="ballerinax"/>
+        <property name="ASB_MESSAGERECEIVER_param0_recordModule" value="asb"/>
+        <property name="ASB_MESSAGERECEIVER_config_param0" value="connectionString"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType0" value="string"/>
+        <property name="ASB_MESSAGERECEIVER_config_param1" value="entityConfig"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType1" value="union"/>
+        <property name="ASB_MESSAGERECEIVER_config_dataType1" value="entityConfigDataType"/>
+        <property name="ASB_MESSAGERECEIVER_config_param2" value="entityConfig.topicName"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType2" value="string"/>
+        <property name="ASB_MESSAGERECEIVER_config_unionMember2" value="TopicSubsConfig"/>
+        <property name="ASB_MESSAGERECEIVER_config_param3" value="entityConfig.subscriptionName"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType3" value="string"/>
+        <property name="ASB_MESSAGERECEIVER_config_unionMember3" value="TopicSubsConfig"/>
+        <property name="ASB_MESSAGERECEIVER_config_param4" value="entityConfig.queueName"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType4" value="string"/>
+        <property name="ASB_MESSAGERECEIVER_config_unionMember4" value="QueueConfig"/>
+        <property name="ASB_MESSAGERECEIVER_config_param5" value="receiveMode"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType5" value="enum"/>
+        <property name="ASB_MESSAGERECEIVER_config_param6" value="maxAutoLockRenewDuration"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType6" value="int"/>
+        <property name="ASB_MESSAGERECEIVER_config_param7" value="amqpRetryOptions.maxRetries"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType7" value="int"/>
+        <property name="ASB_MESSAGERECEIVER_config_param8" value="amqpRetryOptions.delay"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType8" value="decimal"/>
+        <property name="ASB_MESSAGERECEIVER_config_param9" value="amqpRetryOptions.maxDelay"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType9" value="decimal"/>
+        <property name="ASB_MESSAGERECEIVER_config_param10" value="amqpRetryOptions.tryTimeout"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType10" value="decimal"/>
+        <property name="ASB_MESSAGERECEIVER_config_param11" value="amqpRetryOptions.retryMode"/>
+        <property name="ASB_MESSAGERECEIVER_config_paramType11" value="enum"/>
+
+        <property name="ASB_MESSAGESENDER_objectTypeName" value="MessageSender"/>
+        <property name="ASB_MESSAGESENDER_paramSize" value="1"/>
+        <property name="ASB_MESSAGESENDER_paramFunctionName" value="init"/>
+        <property name="ASB_MESSAGESENDER_param0" value="config"/>
+        <property name="ASB_MESSAGESENDER_paramType0" value="record"/>
+        <property name="ASB_MESSAGESENDER_param0_recordName" value="ASBServiceSenderConfig"/>
+        <property name="ASB_MESSAGESENDER_param0_recordOrg" value="ballerinax"/>
+        <property name="ASB_MESSAGESENDER_param0_recordModule" value="asb"/>
+        <property name="ASB_MESSAGESENDER_config_param0" value="entityType"/>
+        <property name="ASB_MESSAGESENDER_config_paramType0" value="enum"/>
+        <property name="ASB_MESSAGESENDER_config_param1" value="topicOrQueueName"/>
+        <property name="ASB_MESSAGESENDER_config_paramType1" value="string"/>
+        <property name="ASB_MESSAGESENDER_config_param2" value="connectionString"/>
+        <property name="ASB_MESSAGESENDER_config_paramType2" value="string"/>
+        <property name="ASB_MESSAGESENDER_config_param3" value="amqpRetryOptions.maxRetries"/>
+        <property name="ASB_MESSAGESENDER_config_paramType3" value="int"/>
+        <property name="ASB_MESSAGESENDER_config_param4" value="amqpRetryOptions.delay"/>
+        <property name="ASB_MESSAGESENDER_config_paramType4" value="decimal"/>
+        <property name="ASB_MESSAGESENDER_config_param5" value="amqpRetryOptions.maxDelay"/>
+        <property name="ASB_MESSAGESENDER_config_paramType5" value="decimal"/>
+        <property name="ASB_MESSAGESENDER_config_param6" value="amqpRetryOptions.tryTimeout"/>
+        <property name="ASB_MESSAGESENDER_config_paramType6" value="decimal"/>
+        <property name="ASB_MESSAGESENDER_config_param7" value="amqpRetryOptions.retryMode"/>
+        <property name="ASB_MESSAGESENDER_config_paramType7" value="enum"/>
+
+        <class name="io.ballerina.stdlib.mi.BalConnectorConfig">
+            <property name="orgName" value="ballerinax"/>
+            <property name="moduleName" value="asb"/>
+            <property name="version" value="3"/>
+        </class>
+    </sequence>
+</template>

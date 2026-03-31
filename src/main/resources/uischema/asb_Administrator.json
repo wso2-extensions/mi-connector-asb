@@ -1,0 +1,50 @@
+{
+  "connectorName": "asb",
+  "connectionName": "asb_Administrator",
+  "title": "Connection Config for asb_Administrator connection",
+  "help": "<h1>asb_Administrator Connection</h1> <b>Ballerina Service Bus connector provides the capability to access Azure Service Bus SDK.\nService Bus API provides data access to highly reliable queues and publish/subscribe topics of Azure Service Bus with deep feature capabilities.</b>",
+  "elements": [
+    {
+      "type": "attribute",
+      "value": {
+        "name": "connectionName",
+        "displayName": "Connection Name",
+        "inputType": "string",
+        "defaultValue": "asb_Administrator_connection_1",
+        "required": "true",
+        "helpTip": "The name for the asb_Administrator connection",
+        "validation": "nameWithoutSpecialCharactors"
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Basic",
+              "collapsed": false,
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "connectionString",
+                    "displayName": "connectionString",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": true,
+                    "helpTip": "",
+                    "validateType": "",
+                    "matchPattern": ""
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

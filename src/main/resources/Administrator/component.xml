@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<component name="Administrator" displayName="Administrator" type="synapse/template">
+    <subComponents>
+        <component name="Administrator_listQueues">
+            <displayName>list queues</displayName>
+            <file>listQueues.xml</file>
+            <description>List the queues.
+&#x60;&#x60;&#x60;ballerina
+asb:QueueList? queues &#x3D; check admin-&gt;listQueues();
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_queueExists">
+            <displayName>queue exists</displayName>
+            <file>queueExists.xml</file>
+            <description>Check whether the queue exists.
+&#x60;&#x60;&#x60;ballerina
+boolean exists &#x3D; check admin-&gt;queueExists(&quot;queue-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_deleteTopic">
+            <displayName>delete topic</displayName>
+            <file>deleteTopic.xml</file>
+            <description>Delete the topic with the given name.
+&#x60;&#x60;&#x60;ballerina
+check admin-&gt;deleteTopic(&quot;topic-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_createRule">
+            <displayName>create rule</displayName>
+            <file>createRule.xml</file>
+            <description>Create a rule with the given name or name and options.
+&#x60;&#x60;&#x60;ballerina
+asb:RuleProperties? properties &#x3D; check admin-&gt;createRule(&quot;topic-1&quot;, &quot;sub-a&quot;, &quot;rule-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_createTopic">
+            <displayName>create topic</displayName>
+            <file>createTopic.xml</file>
+            <description>Create a topic with the given name or name and options.
+&#x60;&#x60;&#x60;ballerina
+asb:TopicProperties? topicProperties &#x3D; check admin-&gt;createTopic(&quot;topic-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_updateQueue">
+            <displayName>update queue</displayName>
+            <file>updateQueue.xml</file>
+            <description>Update the queue with the options.
+&#x60;&#x60;&#x60;ballerina
+asb:QueueProperties? queueProperties &#x3D; check admin-&gt;updateQueue(&quot;queue-1&quot;, maxDeliveryCount &#x3D; 10);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_deleteSubscription">
+            <displayName>delete subscription</displayName>
+            <file>deleteSubscription.xml</file>
+            <description>Delete the subscription with the given name.
+&#x60;&#x60;&#x60;ballerina
+check admin-&gt;deleteSubscription(&quot;topic-1&quot;, &quot;sub-a&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_createSubscription">
+            <displayName>create subscription</displayName>
+            <file>createSubscription.xml</file>
+            <description>Create a subscription with the given name or name and options.
+&#x60;&#x60;&#x60;ballerina
+asb:SubscriptionProperties? subscriptionProperties &#x3D; check admin-&gt;createSubscription(&quot;topic-1&quot;, &quot;sub-a&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_updateSubscription">
+            <displayName>update subscription</displayName>
+            <file>updateSubscription.xml</file>
+            <description>Update the subscription with the given options.
+&#x60;&#x60;&#x60;ballerina
+asb:SubscriptionProperties? subProp &#x3D; check admin-&gt;updateSubscription(&quot;topic-1&quot;, &quot;sub-a&quot;, maxDeliveryCount &#x3D; 10);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_listRules">
+            <displayName>list rules</displayName>
+            <file>listRules.xml</file>
+            <description>List the rules.
+&#x60;&#x60;&#x60;ballerina
+asb:RuleList? rules &#x3D; check admin-&gt;listRules(&quot;topic-1&quot;, &quot;sub-a&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_deleteRule">
+            <displayName>delete rule</displayName>
+            <file>deleteRule.xml</file>
+            <description>Delete the rule with the given name.
+&#x60;&#x60;&#x60;ballerina
+check admin-&gt;deleteRule(&quot;topic-1&quot;, &quot;sub-a&quot;, &quot;rule-1&quot;);
+&#x60;&#x60;&#x60;</description>
+        </component>
+        <component name="Administrator_getTopic">
+            <displayName>get topic</displayName>
+            <file>getTopic.xml</file>
+            <description>Get the topic with the given name.
+&#x60;&#x60;&#x60;ballerina
+asb:TopicProperties? topicProperties &#x3D; check admin-&gt;getTopic(&quot;topic-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_listTopics">
+            <displayName>list topics</displayName>
+            <file>listTopics.xml</file>
+            <description>List the topics.
+&#x60;&#x60;&#x60;ballerina
+asb:TopicList? topics &#x3D; check admin-&gt;listTopics();
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_updateTopic">
+            <displayName>update topic</displayName>
+            <file>updateTopic.xml</file>
+            <description>Update the topic with the given options.
+&#x60;&#x60;&#x60;ballerina
+asb:TopicProperties? topicProp &#x3D; check admin-&gt;updateTopic(&quot;topic-1&quot;, supportOrdering &#x3D; true);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_topicExists">
+            <displayName>topic exists</displayName>
+            <file>topicExists.xml</file>
+            <description>Get the status of existance of a topic with the given name.
+&#x60;&#x60;&#x60;ballerina
+boolean exists &#x3D; check admin-&gt;topicExists(&quot;topic-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_subscriptionExists">
+            <displayName>subscription exists</displayName>
+            <file>subscriptionExists.xml</file>
+            <description>Get the status of existance of a subscription with the given name.
+&#x60;&#x60;&#x60;ballerina
+boolean exists &#x3D; check admin-&gt;subscriptionExists(&quot;topic-1&quot;, &quot;sub-a&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_getRule">
+            <displayName>get rule</displayName>
+            <file>getRule.xml</file>
+            <description>Get the rule with the given name.
+&#x60;&#x60;&#x60;ballerina
+asb:RuleProperties? properties &#x3D; check admin-&gt;getRule(&quot;topic-1&quot;, &quot;sub-a&quot;, &quot;rule-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_getQueue">
+            <displayName>get queue</displayName>
+            <file>getQueue.xml</file>
+            <description>Get the queue with the given name.
+&#x60;&#x60;&#x60;ballerina
+asb:QueueProperties? queueProperties &#x3D; check admin-&gt;getQueue(&quot;queue-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_listSubscriptions">
+            <displayName>list subscriptions</displayName>
+            <file>listSubscriptions.xml</file>
+            <description>List the subscriptions.
+&#x60;&#x60;&#x60;ballerina
+asb:SubscriptionList? subscriptions &#x3D; check admin-&gt;listSubscriptions(&quot;topic-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_createQueue">
+            <displayName>create queue</displayName>
+            <file>createQueue.xml</file>
+            <description>Create a queue with the given name or name and options.
+&#x60;&#x60;&#x60;ballerina
+asb:QueueProperties queueProperties &#x3D; check admin-&gt;createQueue(&quot;queue-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_getSubscription">
+            <displayName>get subscription</displayName>
+            <file>getSubscription.xml</file>
+            <description>Get the subscription with the given name.
+&#x60;&#x60;&#x60;ballerina
+asb:SubscriptionProperties? subscriptionProperties &#x3D; check admin-&gt;getSubscription(&quot;topic-1&quot;, &quot;sub-a&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_deleteQueue">
+            <displayName>delete queue</displayName>
+            <file>deleteQueue.xml</file>
+            <description>Delete the queue with the given name.
+&#x60;&#x60;&#x60;ballerina
+check admin-&gt;deleteQueue(&quot;queue-1&quot;);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        <component name="Administrator_updateRule">
+            <displayName>update rule</displayName>
+            <file>updateRule.xml</file>
+            <description>Update the rule with the options.
+&#x60;&#x60;&#x60;ballerina
+asb:SqlRule rule &#x3D; ...;
+asb:RuleProperties? ruleProperties &#x3D; check admin-&gt;updateRule(&quot;topic-1&quot;, &quot;sub-a&quot;, &quot;rule-1&quot;, rule &#x3D; rule);
+&#x60;&#x60;&#x60;
+</description>
+        </component>
+        </subComponents>
+</component>

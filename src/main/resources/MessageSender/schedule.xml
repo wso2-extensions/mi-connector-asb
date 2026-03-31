@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<template xmlns="http://ws.apache.org/ns/synapse" name="MessageSender_schedule">
+    <parameter name="responseVariable" description="The target variable in which the output of the operation will be stored"/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the output payload of the operation"/>
+    <parameter name="body" description=""/>
+    <parameter name="contentType" description=""/>
+    <parameter name="messageId" description=""/>
+    <parameter name="to" description=""/>
+    <parameter name="replyTo" description=""/>
+    <parameter name="replyToSessionId" description=""/>
+    <parameter name="label" description=""/>
+    <parameter name="sessionId" description=""/>
+    <parameter name="correlationId" description=""/>
+    <parameter name="partitionKey" description=""/>
+    <parameter name="timeToLive" description=""/>
+    <parameter name="sequenceNumber" description=""/>
+    <parameter name="lockToken" description=""/>
+    <parameter name="applicationProperties_properties" description=""/>
+    <parameter name="deliveryCount" description=""/>
+    <parameter name="enqueuedTime" description=""/>
+    <parameter name="enqueuedSequenceNumber" description=""/>
+    <parameter name="deadLetterErrorDescription" description=""/>
+    <parameter name="deadLetterReason" description=""/>
+    <parameter name="deadLetterSource" description=""/>
+    <parameter name="state" description=""/>
+    <parameter name="timeAbbrev" description=""/>
+    <parameter name="which" description=""/>
+    <parameter name="dayOfWeek" description=""/>
+    <parameter name="year" description=""/>
+    <parameter name="month" description=""/>
+    <parameter name="day" description=""/>
+    <parameter name="hour" description=""/>
+    <parameter name="minute" description=""/>
+    <parameter name="second" description=""/>
+    <sequence>
+        <property name="param0" value="message"/>
+        <property name="paramType0" value="record"/>
+        <property name="param0_recordName" value="Message" />
+        <property name="param0_recordOrg" value="ballerinax" />
+        <property name="param0_recordModule" value="asb" />
+        <property name="message_param0" value="body"/>
+        <property name="message_paramType0" value="anydata"/>
+        <property name="message_param1" value="contentType"/>
+        <property name="message_paramType1" value="string"/>
+        <property name="message_param2" value="messageId"/>
+        <property name="message_paramType2" value="string"/>
+        <property name="message_param3" value="to"/>
+        <property name="message_paramType3" value="string"/>
+        <property name="message_param4" value="replyTo"/>
+        <property name="message_paramType4" value="string"/>
+        <property name="message_param5" value="replyToSessionId"/>
+        <property name="message_paramType5" value="string"/>
+        <property name="message_param6" value="label"/>
+        <property name="message_paramType6" value="string"/>
+        <property name="message_param7" value="sessionId"/>
+        <property name="message_paramType7" value="string"/>
+        <property name="message_param8" value="correlationId"/>
+        <property name="message_paramType8" value="string"/>
+        <property name="message_param9" value="partitionKey"/>
+        <property name="message_paramType9" value="string"/>
+        <property name="message_param10" value="timeToLive"/>
+        <property name="message_paramType10" value="int"/>
+        <property name="message_param11" value="sequenceNumber"/>
+        <property name="message_paramType11" value="int"/>
+        <property name="message_param12" value="lockToken"/>
+        <property name="message_paramType12" value="string"/>
+        <property name="message_param13" value="applicationProperties.properties"/>
+        <property name="message_paramType13" value="map"/>
+        <property name="message_param14" value="deliveryCount"/>
+        <property name="message_paramType14" value="int"/>
+        <property name="message_param15" value="enqueuedTime"/>
+        <property name="message_paramType15" value="string"/>
+        <property name="message_param16" value="enqueuedSequenceNumber"/>
+        <property name="message_paramType16" value="int"/>
+        <property name="message_param17" value="deadLetterErrorDescription"/>
+        <property name="message_paramType17" value="string"/>
+        <property name="message_param18" value="deadLetterReason"/>
+        <property name="message_paramType18" value="string"/>
+        <property name="message_param19" value="deadLetterSource"/>
+        <property name="message_paramType19" value="string"/>
+        <property name="message_param20" value="state"/>
+        <property name="message_paramType20" value="string"/>
+        <property name="param1" value="scheduledEnqueueTime"/>
+        <property name="paramType1" value="record"/>
+        <property name="param1_recordName" value="Civil" />
+        <property name="param1_recordOrg" value="ballerina" />
+        <property name="param1_recordModule" value="time" />
+        <property name="scheduledEnqueueTime_param0" value="timeAbbrev"/>
+        <property name="scheduledEnqueueTime_paramType0" value="string"/>
+        <property name="scheduledEnqueueTime_param1" value="which"/>
+        <property name="scheduledEnqueueTime_paramType1" value="enum"/>
+        <property name="scheduledEnqueueTime_param2" value="dayOfWeek"/>
+        <property name="scheduledEnqueueTime_paramType2" value="enum"/>
+        <property name="scheduledEnqueueTime_param3" value="year"/>
+        <property name="scheduledEnqueueTime_paramType3" value="int"/>
+        <property name="scheduledEnqueueTime_param4" value="month"/>
+        <property name="scheduledEnqueueTime_paramType4" value="int"/>
+        <property name="scheduledEnqueueTime_param5" value="day"/>
+        <property name="scheduledEnqueueTime_paramType5" value="int"/>
+        <property name="scheduledEnqueueTime_param6" value="hour"/>
+        <property name="scheduledEnqueueTime_paramType6" value="int"/>
+        <property name="scheduledEnqueueTime_param7" value="minute"/>
+        <property name="scheduledEnqueueTime_paramType7" value="int"/>
+        <property name="scheduledEnqueueTime_param8" value="second"/>
+        <property name="scheduledEnqueueTime_paramType8" value="decimal"/>
+        <property name="paramSize" value="2"/>
+        <property name="paramFunctionName" value="schedule"/>
+        <property name="returnType" value="union"/>
+        <property name="functionType" value="REMOTE"/>
+        <class name="io.ballerina.stdlib.mi.BalConnectorFunction">
+            <property name="orgName" value="ballerinax"/>
+            <property name="moduleName" value="asb"/>
+            <property name="version" value="3"/>
+        </class>
+    </sequence>
+</template>

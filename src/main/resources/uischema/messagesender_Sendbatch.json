@@ -1,0 +1,351 @@
+{
+  "connectorName": "asb",
+  "operationName": "MessageSender_sendBatch",
+  "title": "send batch",
+  "help": "Send batch of messages to queue or topic.\n",
+  "elements": [
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "configRef",
+              "displayName": "Connection",
+              "inputType": "connection",
+              "allowedConnectionTypes": [
+                "asb_MessageSender"
+              ],
+              "defaultType": "connection.asb_MessageSender",
+              "defaultValue": "",
+              "required": "true",
+              "helpTip": "Connection to be used"
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Input Variables",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "messageCount",
+                    "displayName": "messageCount",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": false,
+                    "helpTip": "",
+                    "validateType": "regex",
+                    "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "messagesInputMode",
+                    "displayName": "messages Input Mode",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "Table",
+                      "JSON"
+                    ],
+                    "defaultValue": "Table",
+                    "required": "true",
+                    "helpTip": "Choose input mode: Table for interactive entry, JSON for array expression"
+                  }
+                },
+                {
+                  "type": "table",
+                  "value": {
+                    "name": "messages",
+                    "displayName": "messages",
+                    "title": "messages",
+                    "description": "Configure messages entries",
+                    "tableKey": "body",
+                    "tableValue": "state",
+                    "enableCondition": [
+                      {
+                        "messagesInputMode": "Table"
+                      }
+                    ],
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "body",
+                          "displayName": "Body",
+                          "inputType": "stringOrExpression",
+                          "required": true,
+                          "helpTip": "Body"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "contentType",
+                          "displayName": "ContentType",
+                          "inputType": "stringOrExpression",
+                          "required": true,
+                          "helpTip": "ContentType"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "messageId",
+                          "displayName": "MessageId",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "MessageId"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "to",
+                          "displayName": "To",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "To"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "replyTo",
+                          "displayName": "ReplyTo",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "ReplyTo"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "replyToSessionId",
+                          "displayName": "ReplyToSessionId",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "ReplyToSessionId"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "label",
+                          "displayName": "Label",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "Label"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "sessionId",
+                          "displayName": "SessionId",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "SessionId"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "correlationId",
+                          "displayName": "CorrelationId",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "CorrelationId"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "partitionKey",
+                          "displayName": "PartitionKey",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "PartitionKey"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "timeToLive",
+                          "displayName": "TimeToLive",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "TimeToLive",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "sequenceNumber",
+                          "displayName": "SequenceNumber",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "SequenceNumber",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "lockToken",
+                          "displayName": "LockToken",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "LockToken"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "applicationProperties",
+                          "displayName": "ApplicationProperties",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "ApplicationProperties"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "deliveryCount",
+                          "displayName": "DeliveryCount",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "DeliveryCount",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "enqueuedTime",
+                          "displayName": "EnqueuedTime",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "EnqueuedTime"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "enqueuedSequenceNumber",
+                          "displayName": "EnqueuedSequenceNumber",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "EnqueuedSequenceNumber",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "deadLetterErrorDescription",
+                          "displayName": "DeadLetterErrorDescription",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "DeadLetterErrorDescription"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "deadLetterReason",
+                          "displayName": "DeadLetterReason",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "DeadLetterReason"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "deadLetterSource",
+                          "displayName": "DeadLetterSource",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "DeadLetterSource"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "state",
+                          "displayName": "State",
+                          "inputType": "stringOrExpression",
+                          "required": false,
+                          "helpTip": "State"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "messagesJson",
+                    "displayName": "messages (JSON Array)",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": false,
+                    "helpTip": "Enter JSON array of messages objects. Example: [{\"field1\": \"value1\", ...}, ...]",
+                    "validateType": "json",
+                    "matchPattern": "",
+                    "enableCondition": [
+                      {
+                        "messagesInputMode": "JSON"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Output",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "responseVariable",
+                    "displayName": "Output Variable Name",
+                    "inputType": "string",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "The target variable in which the output of the operation will be stored"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "overwriteBody",
+                    "displayName": "Overwrite Message Body",
+                    "inputType": "checkbox",
+                    "defaultValue": "false",
+                    "helpTip": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain).",
+                    "required": "false"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

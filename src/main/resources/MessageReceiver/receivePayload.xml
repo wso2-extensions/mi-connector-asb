@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<template xmlns="http://ws.apache.org/ns/synapse" name="MessageReceiver_receivePayload">
+    <parameter name="responseVariable" description="The target variable in which the output of the operation will be stored"/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the output payload of the operation"/>
+    <parameter name="serverWaitTime" description=""/>
+    <parameter name="T" description=""/>
+    <parameter name="deadLettered" description=""/>
+    <sequence>
+        <property name="param0" value="serverWaitTime"/>
+        <property name="paramType0" value="int"/>
+        <property name="param1" value="T"/>
+        <property name="paramType1" value="typedesc"/>
+        <property name="param2" value="deadLettered"/>
+        <property name="paramType2" value="boolean"/>
+        <property name="paramSize" value="3"/>
+        <property name="paramFunctionName" value="receivePayload"/>
+        <property name="returnType" value="union"/>
+        <property name="functionType" value="REMOTE"/>
+        <class name="io.ballerina.stdlib.mi.BalConnectorFunction">
+            <property name="orgName" value="ballerinax"/>
+            <property name="moduleName" value="asb"/>
+            <property name="version" value="3"/>
+        </class>
+    </sequence>
+</template>
