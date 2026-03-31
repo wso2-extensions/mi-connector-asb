@@ -21,7 +21,7 @@
 
   <groupId>org.wso2.integration.connector</groupId>
   <artifactId>mi-connector-asb</artifactId>
-  <version>0.9.0-jdk17-SNAPSHOT</version>
+  <version>1.0.0-jdk17-SNAPSHOT</version>
 
   <name>WSO2 Carbon - Azure Service Bus Connector</name>
   <url>http://wso2.org</url>
@@ -83,7 +83,7 @@
     <dependency>
       <groupId>io.ballerina</groupId>
       <artifactId>ballerinax-asb</artifactId>
-      <version>3.8.3</version>
+      <version>3.8.4</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -128,7 +128,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <outputFile>${project.build.directory}/connector/dependencies/ballerinax-asb-3.8.3.jar</outputFile>
+              <outputFile>${project.build.directory}/connector/dependencies/ballerinax-asb-3.8.4.jar</outputFile>
               <artifactSet>
                 <includes>
                   <include>io.ballerina:ballerinax-asb</include>
