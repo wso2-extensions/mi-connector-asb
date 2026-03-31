@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
+ * Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
  *
  * WSO2 LLC. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -71,13 +71,6 @@ public class BalConnectorConfig extends AbstractConnector {
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
         if (!handler.checkIfConnectionExists(connectorName, connectionName)) {
             try {
-
-                // Using json string to create a record value
-//                BString jsonString = StringUtils.fromString("");
-//                BMap<BString, Object> recValue = ValueCreator.createRecordValue(module, "ConnectionConfig");
-////                TypeCreator.createRecordType(module, StringUtils.fromString("https://disease.sh"))
-//                Type type = recValue.getType();
-//                Object o = FromJsonStringWithType.fromJsonStringWithType(jsonString, ValueCreator.createTypedescValue(type));
 
                 String paramSizeName = connectionType + "_" + Constants.SIZE;
                 String paramSize = getPropertyAsString(messageContext, paramSizeName);
