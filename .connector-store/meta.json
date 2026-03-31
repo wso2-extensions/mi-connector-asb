@@ -10,5 +10,98 @@
     "status": "Active",
     "rank": 5,
     "type": "Connector",
-    "releases": []
+    "releases": [
+        {
+            "tagName": "v1.0.0-jdk17",
+            "products": [
+                "MI 4.4.0"
+            ],
+            "operations": [
+                {
+                    "name": "Administrator_listQueues",
+                    "description": "list queues",
+                    "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_listTopics",
+                    "description": "list topics",
+                    "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageSender_close",
+                    "description": "close",
+                    "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_close",
+                    "description": "close",
+                    "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                }
+            ]
+        }
+    ]
 }
