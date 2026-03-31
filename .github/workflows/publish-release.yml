@@ -51,6 +51,11 @@ jobs:
                       <username>${{ secrets.NEXUS_USERNAME }}</username>
                       <password>${{ secrets.NEXUS_PASSWORD }}</password>
                     </server>
+                    <server>
+                      <id>github-ballerina</id>
+                      <username>${{ secrets.PACKAGE_USER }}</username>
+                      <password>${{ secrets.PACKAGE_PAT }}</password>
+                    </server>
                   </servers>
                 </settings>" > ~/.m2/settings.xml
 
