@@ -151,6 +151,10 @@
                   <pattern>com.google.gson</pattern>
                   <shadedPattern>io.ballerina.com.google.gson</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>com.fasterxml</pattern>
+                  <shadedPattern>io.ballerina.com.fasterxml</shadedPattern>
+                </relocation>
               </relocations>
             </configuration>
           </execution>
