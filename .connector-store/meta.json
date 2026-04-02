@@ -3,7 +3,7 @@
     "owner": "WSO2",
     "product": "MI",
     "category": "Messaging",
-    "documentationUrl": "https://mi.docs.wso2.com/en/4.6.0/",
+    "documentationUrl": "https://mi.docs.wso2.com/en/4.5.0/reference/connectors/asb-connector/asb-connector-overview/",
     "mavenGroupId": "org.wso2.integration.connector",
     "mavenArtifactId": "mi-connector-asb",
     "description": "Connector for Azure Service Bus",
