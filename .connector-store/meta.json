@@ -14,13 +14,798 @@
         {
             "tagName": "v1.0.0-jdk17",
             "products": [
-                "MI 4.4.0"
+                "MI 4.4.0",
+                "MI 4.5.0"
             ],
             "operations": [
+                {
+                    "name": "Administrator_createQueue",
+                    "description": "create queue",
+                    "params": [
+                        {
+                            "name": "queueName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardDeadLetteredMessagesTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxDeliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxMessageSizeInKilobytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxSizeInMegabytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "status",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "Unknown",
+                            "description": "Supported values: Unknown, SendDisabled, Restoring, Renaming, ReceiveDisabled, Disabled, Deleting, Creating, Active"
+                        },
+                        {
+                            "name": "userMetadata",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enableBatchedOperations",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnMessageExpiration",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresDuplicateDetection",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enablePartitioning",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresSession",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_getQueue",
+                    "description": "get queue",
+                    "params": [
+                        {
+                            "name": "queueName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_updateQueue",
+                    "description": "update queue",
+                    "params": [
+                        {
+                            "name": "queueName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardDeadLetteredMessagesTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxDeliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxMessageSizeInKilobytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxSizeInMegabytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "status",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "Unknown",
+                            "description": "Supported values: Unknown, SendDisabled, Restoring, Renaming, ReceiveDisabled, Disabled, Deleting, Creating, Active"
+                        },
+                        {
+                            "name": "userMetadata",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enableBatchedOperations",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnMessageExpiration",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresDuplicateDetection",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enablePartitioning",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresSession",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_deleteQueue",
+                    "description": "delete queue",
+                    "params": [
+                        {
+                            "name": "queueName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
                 {
                     "name": "Administrator_listQueues",
                     "description": "list queues",
                     "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_queueExists",
+                    "description": "queue exists",
+                    "params": [
+                        {
+                            "name": "queueName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_createTopic",
+                    "description": "create topic",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxDeliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxMessageSizeInKilobytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxSizeInMegabytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "status",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "Unknown",
+                            "description": "Supported values: Unknown, SendDisabled, Restoring, Renaming, ReceiveDisabled, Disabled, Deleting, Creating, Active"
+                        },
+                        {
+                            "name": "userMetadata",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enableBatchedOperations",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnMessageExpiration",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresDuplicateDetection",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enablePartitioning",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresSession",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "supportOrdering",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_getTopic",
+                    "description": "get topic",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_updateTopic",
+                    "description": "update topic",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "duplicateDetectionHistoryTimeWindow_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxDeliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxMessageSizeInKilobytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxSizeInMegabytes",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "status",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "Unknown",
+                            "description": "Supported values: Unknown, SendDisabled, Restoring, Renaming, ReceiveDisabled, Disabled, Deleting, Creating, Active"
+                        },
+                        {
+                            "name": "userMetadata",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enableBatchedOperations",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnMessageExpiration",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresDuplicateDetection",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enablePartitioning",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresSession",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "supportOrdering",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_deleteTopic",
+                    "description": "delete topic",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
                         {
                             "name": "responseVariable",
                             "type": "string",
@@ -60,9 +845,1465 @@
                     "isHidden": false
                 },
                 {
+                    "name": "Administrator_topicExists",
+                    "description": "topic exists",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_createSubscription",
+                    "description": "create subscription",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enableBatchedOperations",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnMessageExpiration",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnFilterEvaluationExceptions",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardDeadLetteredMessagesTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxDeliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "requiresSession",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "status",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "Unknown",
+                            "description": "Supported values: Unknown, SendDisabled, Restoring, Renaming, ReceiveDisabled, Disabled, Deleting, Creating, Active"
+                        },
+                        {
+                            "name": "userMetadata",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_getSubscription",
+                    "description": "get subscription",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_updateSubscription",
+                    "description": "update subscription",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "autoDeleteOnIdle_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "defaultMessageTimeToLive_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnMessageExpiration",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetteringOnFilterEvaluationExceptions",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enableBatchedOperations",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardDeadLetteredMessagesTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "forwardTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_seconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockDuration_nanoseconds",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "maxDeliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "status",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "Unknown",
+                            "description": "Supported values: Unknown, SendDisabled, Restoring, Renaming, ReceiveDisabled, Disabled, Deleting, Creating, Active"
+                        },
+                        {
+                            "name": "userMetadata",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_deleteSubscription",
+                    "description": "delete subscription",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_listSubscriptions",
+                    "description": "list subscriptions",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_subscriptionExists",
+                    "description": "subscription exists",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_createRule",
+                    "description": "create rule",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "ruleName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "rule_filter",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "rule_action",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_getRule",
+                    "description": "get rule",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "ruleName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_updateRule",
+                    "description": "update rule",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "ruleName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "rule_filter",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "rule_action",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_deleteRule",
+                    "description": "delete rule",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "ruleName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "Administrator_listRules",
+                    "description": "list rules",
+                    "params": [
+                        {
+                            "name": "topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageSender_send",
+                    "description": "send",
+                    "params": [
+                        {
+                            "name": "body",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Expecting JSON object"
+                        },
+                        {
+                            "name": "contentType",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "messageId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "to",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "replyTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "replyToSessionId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "label",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "sessionId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "correlationId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "partitionKey",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "timeToLive",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockToken",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "applicationProperties_properties",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Expecting JSON object with key-value pairs"
+                        },
+                        {
+                            "name": "deliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enqueuedTime",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enqueuedSequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetterErrorDescription",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetterReason",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetterSource",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "state",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageSender_sendPayload",
+                    "description": "send payload",
+                    "params": [
+                        {
+                            "name": "messagePayload",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Expecting JSON object"
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageSender_sendBatch",
+                    "description": "send batch",
+                    "params": [
+                        {
+                            "name": "messageCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "messagesInputMode",
+                            "type": "combo",
+                            "required": true,
+                            "defaultValue": "Table",
+                            "description": "Choose input mode: Table for interactive entry, JSON for array expression. Supported values: Table, JSON"
+                        },
+                        {
+                            "name": "messagesJson",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Enter JSON array of messages objects. Example: [{\"field1\": \"value1\", ...}, ...]"
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageSender_schedule",
+                    "description": "schedule",
+                    "params": [
+                        {
+                            "name": "body",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Expecting JSON object"
+                        },
+                        {
+                            "name": "contentType",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "messageId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "to",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "replyTo",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "replyToSessionId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "label",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "sessionId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "correlationId",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "partitionKey",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "timeToLive",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "lockToken",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "applicationProperties_properties",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "Expecting JSON object with key-value pairs"
+                        },
+                        {
+                            "name": "deliveryCount",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enqueuedTime",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "enqueuedSequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetterErrorDescription",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetterReason",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetterSource",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "state",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "timeAbbrev",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "which",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "0",
+                            "description": "Supported values: 0, 1"
+                        },
+                        {
+                            "name": "dayOfWeek",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "0",
+                            "description": "Supported values: 0, 1, 2, 3, 4, 5, 6"
+                        },
+                        {
+                            "name": "year",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "month",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "day",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "hour",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "minute",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "second",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageSender_cancel",
+                    "description": "cancel",
+                    "params": [
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
                     "name": "MessageSender_close",
                     "description": "close",
                     "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_receive",
+                    "description": "receive",
+                    "params": [
+                        {
+                            "name": "serverWaitTime",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "60",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLettered",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_receivePayload",
+                    "description": "receive payload",
+                    "params": [
+                        {
+                            "name": "serverWaitTime",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "60",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLettered",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_receiveBatch",
+                    "description": "receive batch",
+                    "params": [
+                        {
+                            "name": "maxMessageCount",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "serverWaitTime",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLettered",
+                            "type": "boolean",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_receiveDeferred",
+                    "description": "receive deferred",
+                    "params": [
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_complete",
+                    "description": "complete",
+                    "params": [
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Sequence number of the message"
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_abandon",
+                    "description": "abandon",
+                    "params": [
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Sequence number of the message"
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_deadLetter",
+                    "description": "dead letter",
+                    "params": [
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Sequence number of the message"
+                        },
+                        {
+                            "name": "deadLetterReason",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "DEADLETTERED_BY_RECEIVER",
+                            "description": ""
+                        },
+                        {
+                            "name": "deadLetterErrorDescription",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": ""
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_defer",
+                    "description": "defer",
+                    "params": [
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Sequence number of the message"
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "MessageReceiver_renewLock",
+                    "description": "renew lock",
+                    "params": [
+                        {
+                            "name": "sequenceNumber",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "Sequence number of the message"
+                        },
                         {
                             "name": "responseVariable",
                             "type": "string",
