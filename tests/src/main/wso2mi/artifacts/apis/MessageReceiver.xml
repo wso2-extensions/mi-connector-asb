@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/messagereceiver" name="MessageReceiver" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/receive">
+        <inSequence>
+            <asb.MessageReceiver_receive configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receive_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>60</serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receive>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/receivePayload">
+        <inSequence>
+            <asb.MessageReceiver_receivePayload configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receivePayload_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>60</serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receivePayload>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/receiveBatch/{count}">
+        <inSequence>
+            <asb.MessageReceiver_receiveBatch configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receiveBatch_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <maxMessageCount>{${params.pathParams.count}}</maxMessageCount>
+                <serverWaitTime></serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receiveBatch>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/close">
+        <inSequence>
+            <asb.MessageReceiver_close configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_close_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.MessageReceiver_close>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/receiveAndComplete">
+        <inSequence>
+            <asb.MessageReceiver_receive configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receive_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>60</serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receive>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message>===Received a message===</message>
+            </log>
+            <asb.MessageReceiver_complete configKey="asb_messagereceiver_connection">
+                <sequenceNumber>{${payload.sequenceNumber}}</sequenceNumber>
+                <responseVariable>asb_MessageReceiver_complete_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.MessageReceiver_complete>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/receiveAndAbandon">
+        <inSequence>
+            <asb.MessageReceiver_receive configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receive_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>60</serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receive>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message>===Received a message===</message>
+            </log>
+            <asb.MessageReceiver_abandon configKey="asb_messagereceiver_connection">
+                <sequenceNumber>{${payload.sequenceNumber}}</sequenceNumber>
+                <responseVariable>asb_MessageReceiver_abandon_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.MessageReceiver_abandon>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/receiveAndDeadLetter">
+        <inSequence>
+            <asb.MessageReceiver_receive configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receive_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>60</serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receive>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message>===Received a message===</message>
+            </log>
+            <asb.MessageReceiver_deadLetter configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_deadLetter_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <sequenceNumber>{${payload.sequenceNumber}}</sequenceNumber>
+                <deadLetterReason>DEADLETTERED_BY_RECEIVER</deadLetterReason>
+                <deadLetterErrorDescription>Sample check</deadLetterErrorDescription>
+            </asb.MessageReceiver_deadLetter>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/receiveAndDefer">
+        <inSequence>
+            <asb.MessageReceiver_receive configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receive_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>60</serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receive>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message>===Received a message===</message>
+            </log>
+            <variable name="deferredSeqNum" expression="${payload.sequenceNumber}" type="INTEGER"/>
+            <asb.MessageReceiver_defer configKey="asb_messagereceiver_connection">
+                <sequenceNumber>{${vars.deferredSeqNum}}</sequenceNumber>
+                <responseVariable>asb_MessageReceiver_defer_1</responseVariable>
+                <overwriteBody>false</overwriteBody>
+            </asb.MessageReceiver_defer>
+            <payloadFactory media-type="json">
+                <format>{"sequenceNumber": ${vars.deferredSeqNum}, "status": "deferred"}</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" uri-template="/receiveDeferred">
+        <inSequence>
+            <asb.MessageReceiver_receiveDeferred configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receiveDeferred_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <sequenceNumber>{${payload.id}}</sequenceNumber>
+            </asb.MessageReceiver_receiveDeferred>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message>===receive deferred====</message>
+            </log>
+            <asb.MessageReceiver_complete configKey="asb_messagereceiver_connection">
+                <sequenceNumber>{${payload.sequenceNumber}}</sequenceNumber>
+                <responseVariable>asb_MessageReceiver_complete_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.MessageReceiver_complete>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/receiveAndRenewLock">
+        <inSequence>
+            <asb.MessageReceiver_receive configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receive_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>60</serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receive>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message>===Received a message===</message>
+            </log>
+            <asb.MessageReceiver_renewLock configKey="asb_messagereceiver_connection">
+                <sequenceNumber>{${payload.sequenceNumber}}</sequenceNumber>
+                <responseVariable>asb_MessageReceiver_renewLock_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.MessageReceiver_renewLock>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/receiveBatchAndSettle">
+        <inSequence>
+            <asb.MessageReceiver_receiveBatch configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receiveBatch_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <maxMessageCount>10</maxMessageCount>
+                <serverWaitTime></serverWaitTime>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receiveBatch>
+            <log category="INFO" logMessageID="false" logFullPayload="true">
+                <message></message>
+            </log>
+            <foreach collection="${payload.messages}" parallel-execution="false" update-original="true" continue-without-aggregation="false">
+                <sequence>
+                    <log category="INFO" logMessageID="false" logFullPayload="true">
+                        <message>== Looping a message====</message>
+                    </log>
+                    <asb.MessageReceiver_complete configKey="asb_messagereceiver_connection">
+                        <sequenceNumber>{${payload.sequenceNumber}}</sequenceNumber>
+                        <responseVariable>asb_MessageReceiver_complete_1</responseVariable>
+                        <overwriteBody>true</overwriteBody>
+                    </asb.MessageReceiver_complete>
+                </sequence>
+            </foreach>
+            <respond/>
+        </inSequence>
+        <faultSequence/>
+    </resource>
+</api>

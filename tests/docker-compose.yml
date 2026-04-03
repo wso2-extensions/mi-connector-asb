@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mi-server:
+    image: asb-connector-testing:1.0.0
+    container_name: mi-asb-test
+    ports:
+      - "8290:8290"
+      - "8253:8253"
+      - "9164:9164"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 8290"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 60s

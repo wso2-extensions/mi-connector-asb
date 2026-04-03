@@ -1,0 +1,130 @@
+openapi: 3.0.1
+info:
+  title: MessageSender
+  description: API Definition of MessageSender
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/messagesender
+- url: https://localhost:8253/messagesender
+paths:
+  /send:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - body
+              properties:
+                body:
+                  type: string
+                  example: Hello from ASB
+      responses:
+        default:
+          description: Default response
+  /sendPayload:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - messagePayload
+              properties:
+                messagePayload:
+                  type: string
+                  example: Hello payload
+      responses:
+        default:
+          description: Default response
+  /schedule:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - body
+                - year
+                - month
+                - day
+                - hour
+                - minute
+                - second
+              properties:
+                body:
+                  type: string
+                  example: sample test body
+                year:
+                  type: string
+                  example: "2026"
+                month:
+                  type: string
+                  example: "04"
+                day:
+                  type: string
+                  example: "26"
+                hour:
+                  type: string
+                  example: "10"
+                minute:
+                  type: string
+                  example: "30"
+                second:
+                  type: string
+                  example: "00"
+      responses:
+        default:
+          description: 'Returns {"sequenceNumber": <long>}'
+  /cancel/{sequenceNumber}:
+    get:
+      parameters:
+      - name: sequenceNumber
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /sendBatch:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - count
+                - batch
+              properties:
+                count:
+                  type: integer
+                  example: 2
+                batch:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      body:
+                        type: string
+                  example:
+                    - body: Batch msg 1
+                    - body: Batch msg 2
+      responses:
+        default:
+          description: Default response
+  /close:
+    get:
+      responses:
+        default:
+          description: Closes the sender connection (requires server restart to reconnect)

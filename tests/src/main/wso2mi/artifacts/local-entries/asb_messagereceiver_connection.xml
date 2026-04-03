@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localEntry key="asb_messagereceiver_connection" xmlns="http://ws.apache.org/ns/synapse">
+  <asb.init>
+    <connectionType>ASB_MESSAGERECEIVER</connectionType>
+    <connectionString>{${configs.connection_string}}</connectionString>
+    <entityConfigDataType>TopicSubsConfig</entityConfigDataType>
+    <entityConfig_topicName>{${configs.topic_name}}</entityConfig_topicName>
+    <entityConfig_subscriptionName>{${configs.subscription_name}}</entityConfig_subscriptionName>
+    <receiveMode>PEEK_LOCK</receiveMode>
+    <enable_amqpRetryOptions>false</enable_amqpRetryOptions>
+    <amqpRetryOptions_retryMode>EXPONENTIAL</amqpRetryOptions_retryMode>
+    <name>asb_messagereceiver_connection</name>
+  </asb.init>
+</localEntry>

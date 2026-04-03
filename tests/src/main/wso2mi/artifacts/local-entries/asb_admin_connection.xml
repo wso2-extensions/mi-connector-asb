@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localEntry key="asb_admin_connection" xmlns="http://ws.apache.org/ns/synapse">
+  <asb.init>
+    <connectionType>ASB_ADMINISTRATOR</connectionType>
+    <connectionString>{${configs.connection_string}}</connectionString>
+    <name>asb_admin_connection</name>
+  </asb.init>
+</localEntry>
