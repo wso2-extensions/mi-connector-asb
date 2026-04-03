@@ -37,9 +37,20 @@ jobs:
       
       - name: Extract project version
         run: |
-          VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" pom.xml | sed 's/-SNAPSHOT$//')
-          VERSION_TAG="v$VERSION"
+          FULL_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" pom.xml | sed 's/-SNAPSHOT$//')
+          VERSION_TAG="v$FULL_VERSION"
+          # Extract base version (e.g., 1.0.0 from 1.0.0-jdk17) and qualifier
+          BASE_VERSION=$(echo "$FULL_VERSION" | sed 's/-jdk[0-9]*//')
+          QUALIFIER=$(echo "$FULL_VERSION" | grep -oP '\-jdk[0-9]+' || echo "")
+          # Compute next dev version by incrementing patch
+          MAJOR=$(echo "$BASE_VERSION" | cut -d. -f1)
+          MINOR=$(echo "$BASE_VERSION" | cut -d. -f2)
+          PATCH=$(echo "$BASE_VERSION" | cut -d. -f3)
+          NEXT_PATCH=$((PATCH + 1))
+          NEXT_DEV_VERSION="${MAJOR}.${MINOR}.${NEXT_PATCH}${QUALIFIER}-SNAPSHOT"
           echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$FULL_VERSION" >> $GITHUB_ENV
+          echo "NEXT_DEV_VERSION=$NEXT_DEV_VERSION" >> $GITHUB_ENV
 
       - name: Configure Maven settings file
         run: |
@@ -67,7 +78,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WSO2_INTEGRATION_BOT_TOKEN }}
         run: |
-          mvn --batch-mode release:prepare release:perform -Dtag=${{ env.VERSION_TAG }} -Darguments="-Dmaven.javadoc.skip=true"
+          mvn --batch-mode release:prepare release:perform \
+            -Dtag=${{ env.VERSION_TAG }} \
+            -DreleaseVersion=${{ env.RELEASE_VERSION }} \
+            -DdevelopmentVersion=${{ env.NEXT_DEV_VERSION }} \
+            -Darguments="-Dmaven.javadoc.skip=true"
 
       - name: Create Github Release with Assets
         env:
