@@ -2342,6 +2342,228 @@
                     ],
                     "isHidden": false
                 }
+            ],
+            "connections": [
+                {
+                    "name": "asb_Administrator",
+                    "description": "Azure Service Bus Administrator Connection",
+                    "params": [
+                        {
+                            "name": "connectionName",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "asb_Administrator_connection_1",
+                            "description": "A unique name to identify this connection"
+                        },
+                        {
+                            "name": "connectionString",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The Azure Service Bus connection string"
+                        }
+                    ]
+                },
+                {
+                    "name": "asb_MessageSender",
+                    "description": "Azure Service Bus Message Sender Connection",
+                    "params": [
+                        {
+                            "name": "connectionName",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "asb_MessageSender_connection_1",
+                            "description": "A unique name to identify this connection"
+                        },
+                        {
+                            "name": "entityType",
+                            "type": "combo",
+                            "required": true,
+                            "defaultValue": "topic",
+                            "description": "The type of the entity to send messages to",
+                            "values": [
+                                "topic",
+                                "queue"
+                            ]
+                        },
+                        {
+                            "name": "topicOrQueueName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The name of the topic or queue to send messages to"
+                        },
+                        {
+                            "name": "connectionString",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The Azure Service Bus connection string"
+                        },
+                        {
+                            "name": "enable_amqpRetryOptions",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Enable configuring AMQP retry options"
+                        },
+                        {
+                            "name": "amqpRetryOptions_maxRetries",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum number of retry attempts"
+                        },
+                        {
+                            "name": "amqpRetryOptions_delay",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The delay (in seconds) between retry attempts"
+                        },
+                        {
+                            "name": "amqpRetryOptions_maxDelay",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum delay (in seconds) allowed between retry attempts"
+                        },
+                        {
+                            "name": "amqpRetryOptions_tryTimeout",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum duration (in seconds) to wait for a single attempt"
+                        },
+                        {
+                            "name": "amqpRetryOptions_retryMode",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "EXPONENTIAL",
+                            "description": "The retry mode to use",
+                            "values": [
+                                "EXPONENTIAL",
+                                "FIXED"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "asb_MessageReceiver",
+                    "description": "Azure Service Bus Message Receiver Connection",
+                    "params": [
+                        {
+                            "name": "connectionName",
+                            "type": "string",
+                            "required": true,
+                            "defaultValue": "asb_MessageReceiver_connection_1",
+                            "description": "A unique name to identify this connection"
+                        },
+                        {
+                            "name": "connectionString",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The Azure Service Bus connection string"
+                        },
+                        {
+                            "name": "entityConfigDataType",
+                            "type": "combo",
+                            "required": true,
+                            "defaultValue": "TopicSubsConfig",
+                            "description": "The entity type to receive messages from",
+                            "values": [
+                                "TopicSubsConfig",
+                                "QueueConfig"
+                            ]
+                        },
+                        {
+                            "name": "entityConfig_topicName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The name of the topic (used when entityConfigDataType is TopicSubsConfig)"
+                        },
+                        {
+                            "name": "entityConfig_subscriptionName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The name of the subscription (used when entityConfigDataType is TopicSubsConfig)"
+                        },
+                        {
+                            "name": "entityConfig_queueName",
+                            "type": "stringOrExpression",
+                            "required": true,
+                            "defaultValue": "",
+                            "description": "The name of the queue (used when entityConfigDataType is QueueConfig)"
+                        },
+                        {
+                            "name": "receiveMode",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "PEEK_LOCK",
+                            "description": "The receive mode for messages",
+                            "values": [
+                                "PEEK_LOCK",
+                                "RECEIVE_AND_DELETE"
+                            ]
+                        },
+                        {
+                            "name": "maxAutoLockRenewDuration",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum duration (in seconds) to automatically renew the message lock"
+                        },
+                        {
+                            "name": "enable_amqpRetryOptions",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Enable configuring AMQP retry options"
+                        },
+                        {
+                            "name": "amqpRetryOptions_maxRetries",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum number of retry attempts"
+                        },
+                        {
+                            "name": "amqpRetryOptions_delay",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The delay (in seconds) between retry attempts"
+                        },
+                        {
+                            "name": "amqpRetryOptions_maxDelay",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum delay (in seconds) allowed between retry attempts"
+                        },
+                        {
+                            "name": "amqpRetryOptions_tryTimeout",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The maximum duration (in seconds) to wait for a single attempt"
+                        },
+                        {
+                            "name": "amqpRetryOptions_retryMode",
+                            "type": "combo",
+                            "required": false,
+                            "defaultValue": "EXPONENTIAL",
+                            "description": "The retry mode to use",
+                            "values": [
+                                "EXPONENTIAL",
+                                "FIXED"
+                            ]
+                        }
+                    ]
+                }
             ]
         }
     ]
