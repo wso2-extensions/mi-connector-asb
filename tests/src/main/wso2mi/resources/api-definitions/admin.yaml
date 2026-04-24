@@ -1,0 +1,368 @@
+openapi: 3.0.1
+info:
+  title: admin
+  description: API Definition of admin
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/admin
+- url: https://localhost:8253/admin
+paths:
+  /createTopic:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topicName]
+              properties:
+                topicName:
+                  type: string
+                  example: my-topic
+      responses:
+        default:
+          description: Default response
+  /getTopic:
+    get:
+      parameters:
+      - name: topicName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /updateTopic:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topicName]
+              properties:
+                topicName:
+                  type: string
+      responses:
+        default:
+          description: Default response
+  /listTopics:
+    get:
+      responses:
+        default:
+          description: Default response
+  /deleteTopic/{topicName}:
+    delete:
+      parameters:
+      - name: topicName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /createSubscription:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topicName, subsName]
+              properties:
+                topicName:
+                  type: string
+                subsName:
+                  type: string
+      responses:
+        default:
+          description: Default response
+  /getSubscription:
+    get:
+      parameters:
+      - name: topicName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: subName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /updateSubscription:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topicName, subscriptionName]
+              properties:
+                topicName:
+                  type: string
+                subscriptionName:
+                  type: string
+                idleSecond:
+                  type: integer
+                  example: 3600
+                idleNanoSecond:
+                  type: integer
+                  example: 0
+      responses:
+        default:
+          description: Default response
+  /listSubscriptions/{topicName}:
+    get:
+      parameters:
+      - name: topicName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /deleteSubscription:
+    delete:
+      parameters:
+      - name: topicName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: subName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /topicExists/{topicName}:
+    get:
+      parameters:
+      - name: topicName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /subscriptionExists:
+    get:
+      parameters:
+      - name: topicName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: subName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /createRule:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topicName, subName, ruleName, filter, action]
+              properties:
+                topicName:
+                  type: string
+                subName:
+                  type: string
+                ruleName:
+                  type: string
+                filter:
+                  type: string
+                  example: "Region = 'Europe'"
+                action:
+                  type: string
+                  example: "SET Priority = 'High'"
+      responses:
+        default:
+          description: Default response
+  /getRule:
+    get:
+      parameters:
+      - name: topicName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: subName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: ruleName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /updateRule:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topicName, subName, ruleName, filter, action]
+              properties:
+                topicName:
+                  type: string
+                subName:
+                  type: string
+                ruleName:
+                  type: string
+                filter:
+                  type: string
+                  example: "Region = 'EMEA'"
+                action:
+                  type: string
+                  example: "SET Priority = 'Urgent'"
+      responses:
+        default:
+          description: Default response
+  /listRules:
+    get:
+      parameters:
+      - name: topicName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: subName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /deleteRule:
+    delete:
+      parameters:
+      - name: topicName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: subName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: ruleName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /createQueue:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - queueName
+              properties:
+                queueName:
+                  type: string
+      responses:
+        default:
+          description: Default response
+  /getQueue/{queueName}:
+    get:
+      parameters:
+      - name: queueName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /updateQueue:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - queueName
+              properties:
+                queueName:
+                  type: string
+                doiSeconds:
+                  type: integer
+                  example: 3600
+      responses:
+        default:
+          description: Default response
+  /listQueues:
+    get:
+      responses:
+        default:
+          description: Default response
+  /deleteQueue:
+    delete:
+      parameters:
+      - name: queueName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /queueExists/{queueName}:
+    get:
+      parameters:
+      - name: queueName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response

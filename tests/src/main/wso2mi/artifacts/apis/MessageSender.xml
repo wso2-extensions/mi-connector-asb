@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/messagesender" name="MessageSender" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/send">
+        <inSequence>
+            <asb.MessageSender_send configKey="messageSender_connection">
+                <responseVariable>asb_MessageSender_send_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <body>{${payload.body}}</body>
+                <contentType></contentType>
+                <messageId></messageId>
+                <to></to>
+                <replyTo></replyTo>
+                <replyToSessionId></replyToSessionId>
+                <label></label>
+                <sessionId></sessionId>
+                <correlationId></correlationId>
+                <partitionKey></partitionKey>
+                <timeToLive></timeToLive>
+                <sequenceNumber></sequenceNumber>
+                <lockToken></lockToken>
+                <applicationProperties_properties></applicationProperties_properties>
+                <deliveryCount></deliveryCount>
+                <enqueuedTime></enqueuedTime>
+                <enqueuedSequenceNumber></enqueuedSequenceNumber>
+                <deadLetterErrorDescription></deadLetterErrorDescription>
+                <deadLetterReason></deadLetterReason>
+                <deadLetterSource></deadLetterSource>
+                <state></state>
+            </asb.MessageSender_send>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" uri-template="/sendPayload">
+        <inSequence>
+            <asb.MessageSender_sendPayload configKey="messageSender_connection">
+                <responseVariable>asb_MessageSender_sendPayload_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <messagePayload>{${payload.messagePayload}}</messagePayload>
+            </asb.MessageSender_sendPayload>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" uri-template="/schedule">
+        <inSequence>
+            <asb.MessageSender_schedule configKey="messageSender_connection">
+                <responseVariable>asb_MessageSender_schedule_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <body>{${payload.body}}</body>
+                <contentType></contentType>
+                <messageId></messageId>
+                <to></to>
+                <replyTo></replyTo>
+                <replyToSessionId></replyToSessionId>
+                <label></label>
+                <sessionId></sessionId>
+                <correlationId></correlationId>
+                <partitionKey></partitionKey>
+                <timeToLive></timeToLive>
+                <sequenceNumber></sequenceNumber>
+                <lockToken></lockToken>
+                <applicationProperties_properties></applicationProperties_properties>
+                <deliveryCount></deliveryCount>
+                <enqueuedTime></enqueuedTime>
+                <enqueuedSequenceNumber></enqueuedSequenceNumber>
+                <deadLetterErrorDescription></deadLetterErrorDescription>
+                <deadLetterReason></deadLetterReason>
+                <deadLetterSource></deadLetterSource>
+                <state></state>
+                <timeAbbrev></timeAbbrev>
+                <which>0</which>
+                <dayOfWeek>0</dayOfWeek>
+                <year>{${payload.year}}</year>
+                <month>{${payload.month}}</month>
+                <day>{${payload.day}}</day>
+                <hour>{${payload.hour}}</hour>
+                <minute>{${payload.minute}}</minute>
+                <second>{${payload.second}}</second>
+            </asb.MessageSender_schedule>
+            <payloadFactory media-type="json">
+                <format>{"sequenceNumber": ${payload}}</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/cancel/{sequenceNumber}">
+        <inSequence>
+        <asb.MessageSender_cancel configKey="messageSender_connection">
+    <responseVariable >asb_MessageSender_cancel_1</responseVariable>
+    <overwriteBody >true</overwriteBody>
+    <sequenceNumber >{${params.pathParams.sequenceNumber}}</sequenceNumber>
+            </asb.MessageSender_cancel>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" uri-template="/sendBatch">
+        <inSequence>
+            <asb.MessageSender_sendBatch configKey="messageSender_connection">
+                <responseVariable>asb_MessageSender_sendBatch_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <messageCount>{${payload.count}}</messageCount>
+                <messagesInputMode>JSON</messagesInputMode>
+                <messagesJson>{${payload.batch}}</messagesJson>
+            </asb.MessageSender_sendBatch>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/close">
+        <inSequence>
+            <asb.MessageSender_close configKey="messageSender_connection">
+                <responseVariable>asb_MessageSender_close_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </asb.MessageSender_close>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+        <sequence key="CommonFaultSequence" /></faultSequence>
+    </resource>
+</api>

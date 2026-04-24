@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="CommonFaultSequence" xmlns="http://ws.apache.org/ns/synapse">
+    <log category="ERROR">
+        <message>Error occurred | Code: ${props.synapse.ERROR_CODE} | Message: ${props.synapse.ERROR_MESSAGE} | Detail: ${props.synapse.ERROR_DETAIL}</message>
+    </log>
+    <payloadFactory media-type="json">
+        <format>
+            {
+                "error": {
+                    "code": "${props.synapse.ERROR_CODE}",
+                    "message": "${props.synapse.ERROR_MESSAGE}"
+                }
+            }
+        </format>
+    </payloadFactory>
+    <header name="Content-Type" scope="transport" value="application/json"/>
+    <respond/>
+</sequence>
