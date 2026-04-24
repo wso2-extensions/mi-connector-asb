@@ -41,9 +41,27 @@ public class ParamHandler {
 
     private static final Log log = LogFactory.getLog(ParamHandler.class);
 
-    public void setParameters(Object[] args, MessageContext context) {
+    public void setParameters(Object[] args, MessageContext context, Object callable) {
+        String functionName = SynapseUtils.getPropertyAsString(context, Constants.FUNCTION_NAME);
         for (int i = 0; i < args.length; i++) {
             Object param = getParameter(context, "param" + i, "paramType" + i, i);
+
+            if (param instanceof BMap || param instanceof BArray) {
+                Type expectedType = null;
+                if (callable instanceof BObject bObject) {
+                    expectedType = DataTransformer.getMethodParameterType(bObject, functionName, i);
+                } else if (callable instanceof io.ballerina.runtime.api.Module module) {
+                    expectedType = DataTransformer.getFunctionParameterType(module, functionName, i);
+                }
+
+                if (expectedType != null) {
+                    try {
+                        param = DataTransformer.convertValueToType(param, expectedType);
+                    } catch (Exception e) {
+                        log.warn("Failed to convert parameter " + i + " to expected type: " + e.getMessage());
+                    }
+                }
+            }
             args[i] = param;
         }
     }
@@ -112,7 +130,7 @@ public class ParamHandler {
         Object param = SynapseUtils.lookupTemplateParameter(context, paramName);
 
         String paramType;
-        if (value.matches("param\\d+Union.*")) {
+        if (value.matches("(?:.*_)?param\\d+Union.*")) {
             paramType = type;
         } else {
             paramType = SynapseUtils.getPropertyAsString(context, type);
@@ -121,9 +139,10 @@ public class ParamHandler {
                 paramType = Constants.STRING;
             }
         }
+        String paramPrefix = extractParamKeyPrefix(value);
         if (param == null) {
             if (UNION.equals(paramType)) {
-                return getUnionParameter(paramName, context, index);
+                return getUnionParameter(paramName, context, index, paramPrefix);
             } else if (RECORD.equals(paramType)) {
                 return DataTransformer.createRecordValue(null, paramName, context, index);
             } else if (ANYDATA.equals(paramType)) {
@@ -138,6 +157,8 @@ public class ParamHandler {
                 }
                 // Fall back to anydata if no default specified
                 return ValueCreator.createTypedescValue(PredefinedTypes.TYPE_ANYDATA);
+            } else if (value.matches("(?:.*_)?param\\d+Union.*") && isCustomRecordType(paramType)) {
+                return DataTransformer.createRecordValue(null, paramName, context, index, paramType);
             }
             return null;
         }
@@ -155,8 +176,9 @@ public class ParamHandler {
                 case RECORD -> DataTransformer.createRecordValue((String) param, paramName, context, index);
                 case ARRAY -> getArrayParameter((String) param, context, value);
                 case MAP -> DataTransformer.getMapParameter(param, context, value);
-                case UNION -> getUnionParameter(paramName, context, index);
+                case UNION -> getUnionParameter(paramName, context, index, paramPrefix);
                 case TYPEDESC -> getTypedescValueWithFallback((String) param, paramName, context, index);
+                case ENUM -> StringUtils.fromString((String) param);
                 default -> null;
             };
             return result;
@@ -210,13 +232,43 @@ public class ParamHandler {
         return ValueCreator.createTypedescValue(type);
     }
 
-    private Object getUnionParameter(String paramName, MessageContext context, int index) {
+    private Object getUnionParameter(String paramName, MessageContext context, int index, String prefix) {
         Object paramType = SynapseUtils.lookupTemplateParameter(context, paramName + "DataType");
         if (paramType instanceof String typeStr) {
-            String unionParamName = "param" + index + "Union" + org.apache.commons.lang3.StringUtils.capitalize(typeStr);
+            String unionParamName = prefix + "param" + index + "Union"
+                    + org.apache.commons.lang3.StringUtils.capitalize(typeStr);
             return getParameter(context, unionParamName, typeStr, -1);
         }
         return null;
+    }
+
+    /**
+     * Extracts the connection-type prefix from a parameter key used in init/config context.
+     * For function context keys like {@code "param0"} returns {@code ""}.
+     * For init context keys like {@code "SAP_JCO_CLIENT_param0"} returns {@code "SAP_JCO_CLIENT_"}.
+     */
+    private static String extractParamKeyPrefix(String key) {
+        if (key == null) {
+            return "";
+        }
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("^(.*?)param\\d+").matcher(key);
+        return m.find() ? m.group(1) : "";
+    }
+
+    /**
+     * Returns {@code true} when {@code paramType} is a custom record type name (e.g. "DestinationConfig")
+     * rather than one of the built-in Ballerina / connector type constants.
+     * Used to detect union members that need record reconstruction from flattened context fields.
+     */
+    private static boolean isCustomRecordType(String paramType) {
+        if (paramType == null || paramType.isEmpty()) {
+            return false;
+        }
+        return switch (paramType) {
+            case BOOLEAN, INT, STRING, FLOAT, DECIMAL, JSON, XML,
+                    ANYDATA, RECORD, ARRAY, MAP, UNION, TYPEDESC, ENUM -> false;
+            default -> true;
+        };
     }
 
     private Object getArrayParameter(String jsonArrayString, MessageContext context, String valueKey) {
@@ -328,7 +380,7 @@ public class ParamHandler {
                 throw new SynapseException("Failed to parse union array: " + e.getMessage(), e);
             }
         }
-        
+
         try {
             Object parsed = JsonUtils.parse(cleanedJson);
             if (parsed instanceof BArray array) {
@@ -337,13 +389,13 @@ public class ParamHandler {
                      return JsonUtils.parse(transformed);
                 }
             }
-            return parsed; 
+            return parsed;
         } catch (Exception e) {
             log.error("Failed to parse array JSON: " + e.getMessage(), e);
             throw new SynapseException("Failed to parse array: " + e.getMessage(), e);
         }
     }
-    
+
     private String transformUnionTableToArray(BArray array) {
         BString typeKey = StringUtils.fromString("type");
         BString valueFieldName = StringUtils.fromString("value");
@@ -411,7 +463,7 @@ public class ParamHandler {
         }
         return ValueCreator.createArrayValue(doubleArray);
     }
-    
+
     // Quick helper for escaping JSON strings for union table transformation
     private String escapeJsonString(String value) {
         if (value == null) return "";
