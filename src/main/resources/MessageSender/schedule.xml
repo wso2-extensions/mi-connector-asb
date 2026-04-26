@@ -40,9 +40,6 @@
     <parameter name="deadLetterReason" description=""/>
     <parameter name="deadLetterSource" description=""/>
     <parameter name="state" description=""/>
-    <parameter name="utcOffset_hours" description=""/>
-    <parameter name="utcOffset_minutes" description=""/>
-    <parameter name="utcOffset_seconds" description=""/>
     <parameter name="timeAbbrev" description=""/>
     <parameter name="which" description=""/>
     <parameter name="dayOfWeek" description=""/>
@@ -105,30 +102,24 @@
         <property name="param1_recordName" value="Civil" />
         <property name="param1_recordOrg" value="ballerina" />
         <property name="param1_recordModule" value="time" />
-        <property name="scheduledEnqueueTime_param0" value="utcOffset.hours"/>
-        <property name="scheduledEnqueueTime_paramType0" value="int"/>
-        <property name="scheduledEnqueueTime_param1" value="utcOffset.minutes"/>
-        <property name="scheduledEnqueueTime_paramType1" value="int"/>
-        <property name="scheduledEnqueueTime_param2" value="utcOffset.seconds"/>
-        <property name="scheduledEnqueueTime_paramType2" value="decimal"/>
-        <property name="scheduledEnqueueTime_param3" value="timeAbbrev"/>
-        <property name="scheduledEnqueueTime_paramType3" value="string"/>
-        <property name="scheduledEnqueueTime_param4" value="which"/>
-        <property name="scheduledEnqueueTime_paramType4" value="enum"/>
-        <property name="scheduledEnqueueTime_param5" value="dayOfWeek"/>
-        <property name="scheduledEnqueueTime_paramType5" value="enum"/>
-        <property name="scheduledEnqueueTime_param6" value="year"/>
+        <property name="scheduledEnqueueTime_param0" value="timeAbbrev"/>
+        <property name="scheduledEnqueueTime_paramType0" value="string"/>
+        <property name="scheduledEnqueueTime_param1" value="which"/>
+        <property name="scheduledEnqueueTime_paramType1" value="enum"/>
+        <property name="scheduledEnqueueTime_param2" value="dayOfWeek"/>
+        <property name="scheduledEnqueueTime_paramType2" value="enum"/>
+        <property name="scheduledEnqueueTime_param3" value="year"/>
+        <property name="scheduledEnqueueTime_paramType3" value="int"/>
+        <property name="scheduledEnqueueTime_param4" value="month"/>
+        <property name="scheduledEnqueueTime_paramType4" value="int"/>
+        <property name="scheduledEnqueueTime_param5" value="day"/>
+        <property name="scheduledEnqueueTime_paramType5" value="int"/>
+        <property name="scheduledEnqueueTime_param6" value="hour"/>
         <property name="scheduledEnqueueTime_paramType6" value="int"/>
-        <property name="scheduledEnqueueTime_param7" value="month"/>
+        <property name="scheduledEnqueueTime_param7" value="minute"/>
         <property name="scheduledEnqueueTime_paramType7" value="int"/>
-        <property name="scheduledEnqueueTime_param8" value="day"/>
-        <property name="scheduledEnqueueTime_paramType8" value="int"/>
-        <property name="scheduledEnqueueTime_param9" value="hour"/>
-        <property name="scheduledEnqueueTime_paramType9" value="int"/>
-        <property name="scheduledEnqueueTime_param10" value="minute"/>
-        <property name="scheduledEnqueueTime_paramType10" value="int"/>
-        <property name="scheduledEnqueueTime_param11" value="second"/>
-        <property name="scheduledEnqueueTime_paramType11" value="decimal"/>
+        <property name="scheduledEnqueueTime_param8" value="second"/>
+        <property name="scheduledEnqueueTime_paramType8" value="decimal"/>
         <property name="paramSize" value="2"/>
         <property name="paramFunctionName" value="schedule"/>
         <property name="returnType" value="union"/>

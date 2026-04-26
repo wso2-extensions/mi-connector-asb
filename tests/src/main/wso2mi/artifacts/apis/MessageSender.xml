@@ -119,9 +119,6 @@
                 <hour>{${payload.hour}}</hour>
                 <minute>{${payload.minute}}</minute>
                 <second>{${payload.second}}</second>
-                <utcOffset_hours>{${payload.utcHours}}</utcOffset_hours>
-                <utcOffset_minutes>{${payload.utcMinutes}}</utcOffset_minutes>
-                <utcOffset_seconds>{${payload.utcSeconds}}</utcOffset_seconds>
             </asb.MessageSender_schedule>
             <payloadFactory media-type="json">
                 <format>{"sequenceNumber": ${payload}}</format>
