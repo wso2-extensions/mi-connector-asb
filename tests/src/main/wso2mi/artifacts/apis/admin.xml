@@ -17,7 +17,7 @@
     <maxDeliveryCount ></maxDeliveryCount>
     <maxMessageSizeInKilobytes ></maxMessageSizeInKilobytes>
     <maxSizeInMegabytes ></maxSizeInMegabytes>
-    <status >Unknown</status>
+    <status >Active</status>
     <userMetadata ></userMetadata>
     <enableBatchedOperations ></enableBatchedOperations>
     <deadLetteringOnMessageExpiration ></deadLetteringOnMessageExpiration>
@@ -60,7 +60,7 @@
     <maxDeliveryCount ></maxDeliveryCount>
     <maxMessageSizeInKilobytes ></maxMessageSizeInKilobytes>
     <maxSizeInMegabytes ></maxSizeInMegabytes>
-    <status >Unknown</status>
+    <status >Active</status>
     <userMetadata ></userMetadata>
     <enableBatchedOperations ></enableBatchedOperations>
     <deadLetteringOnMessageExpiration ></deadLetteringOnMessageExpiration>
@@ -120,7 +120,7 @@
                 <lockDuration_nanoseconds></lockDuration_nanoseconds>
                 <maxDeliveryCount></maxDeliveryCount>
                 <requiresSession></requiresSession>
-                <status>Unknown</status>
+                <status>Active</status>
                 <userMetadata></userMetadata>
             </asb.Administrator_createSubscription>
             <respond/>
@@ -322,7 +322,7 @@
     <maxDeliveryCount ></maxDeliveryCount>
     <maxMessageSizeInKilobytes ></maxMessageSizeInKilobytes>
     <maxSizeInMegabytes ></maxSizeInMegabytes>
-    <status >Unknown</status>
+    <status >Active</status>
     <userMetadata ></userMetadata>
     <enableBatchedOperations ></enableBatchedOperations>
     <deadLetteringOnMessageExpiration ></deadLetteringOnMessageExpiration>
@@ -368,7 +368,7 @@
                 <maxDeliveryCount></maxDeliveryCount>
                 <maxMessageSizeInKilobytes></maxMessageSizeInKilobytes>
                 <maxSizeInMegabytes></maxSizeInMegabytes>
-                <status>Unknown</status>
+                <status>Active</status>
                 <userMetadata></userMetadata>
                 <enableBatchedOperations></enableBatchedOperations>
                 <deadLetteringOnMessageExpiration></deadLetteringOnMessageExpiration>

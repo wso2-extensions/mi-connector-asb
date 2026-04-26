@@ -146,7 +146,7 @@ public class BalExecutor {
             }
         }
         Object[] args = new Object[size];
-        paramHandler.setParameters(args, context);
+        paramHandler.setParameters(args, context, callable);
 
         try {
             Object result;
@@ -173,9 +173,7 @@ public class BalExecutor {
                     if (MESSAGE_SETTLEMENT_FUNCTIONS.contains(functionName)) {
                         restoreNativeMessage(context, args);
                     }
-                    // Convert arguments to expected types using method signature info
-                    Object[] convertedArgs = convertArgsToExpectedTypes(bObject, functionName, args);
-                    result = invokeMethodSync(rt, bObject, functionName, convertedArgs);
+                    result = invokeMethodSync(rt, bObject, functionName, args);
                     if (PERSIST_NEEDED_FUNCTIONS.contains(functionName)){
                         persistNativeMessage(context, result);
                     }
@@ -323,17 +321,5 @@ public class BalExecutor {
 
     private static boolean isOverwriteBody(MessageContext context) {
         return Boolean.parseBoolean((String) SynapseUtils.lookupTemplateParameter(context, Constants.OVERWRITE_BODY));
-    }
-
-    /**
-     * Converts arguments to their expected types based on method signature.
-     * This is used to convert generic BMaps to typed records for external module types.
-     */
-    private Object[] convertArgsToExpectedTypes(BObject bObject, String methodName, Object[] args) {
-        Object[] converted = new Object[args.length];
-        for (int i = 0; i < args.length; i++) {
-            converted[i] = DataTransformer.convertToExpectedType(args[i], bObject, methodName, i);
-        }
-        return converted;
     }
 }
