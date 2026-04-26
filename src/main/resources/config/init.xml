@@ -26,6 +26,7 @@
     <parameter name="entityConfig_queueName" description=""/>
     <parameter name="receiveMode" description=""/>
     <parameter name="maxAutoLockRenewDuration" description=""/>
+    <parameter name="enable_amqpRetryOptions" description=""/>
     <parameter name="amqpRetryOptions_maxRetries" description=""/>
     <parameter name="amqpRetryOptions_delay" description=""/>
     <parameter name="amqpRetryOptions_maxDelay" description=""/>

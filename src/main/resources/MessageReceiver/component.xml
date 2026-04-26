@@ -21,103 +21,52 @@
         <component name="MessageReceiver_renewLock">
             <displayName>renew lock</displayName>
             <file>renewLock.xml</file>
-            <description>The operation renews lock on a message in a queue or subscription based on messageLockToken.
-&#x60;&#x60;&#x60;ballerina
-asb:Message message &#x3D; ...;
-check receiver-&gt;renewLock(message);
-&#x60;&#x60;&#x60;
-</description>
+            <description>The operation renews lock on a message in a queue or subscription based on messageLockToken.</description>
         </component>
         <component name="MessageReceiver_receive">
             <displayName>receive</displayName>
             <file>receive.xml</file>
-            <description>Receive message from queue or subscription.
-&#x60;&#x60;&#x60;ballerina
-asb:Message? message &#x3D; check receiver-&gt;receive();
-&#x60;&#x60;&#x60;
-</description>
+            <description>Receive message from queue or subscription.</description>
         </component>
         <component name="MessageReceiver_defer">
             <displayName>defer</displayName>
             <file>defer.xml</file>
-            <description>Defer the message in a Queue or Subscription based on messageLockToken.  It prevents the message from being 
-directly received from the queue by setting it aside such that it must be received by sequence number.
-&#x60;&#x60;&#x60;ballerina
-asb:Message message &#x3D; ...;
-int sequenceNumber &#x3D; check receiver-&gt;defer(message);
-&#x60;&#x60;&#x60;
-</description>
+            <description>Defer the message in a Queue or Subscription based on messageLockToken.  It prevents the message from being</description>
         </component>
         <component name="MessageReceiver_receivePayload">
             <displayName>receive payload</displayName>
             <file>receivePayload.xml</file>
-            <description>Receive message payload from queue or subscription.
-&#x60;&#x60;&#x60;ballerina
-string messagePayload &#x3D; check receiver-&gt;receivePayload();
-&#x60;&#x60;&#x60;
-</description>
+            <description>Receive message payload from queue or subscription.</description>
         </component>
         <component name="MessageReceiver_abandon">
             <displayName>abandon</displayName>
             <file>abandon.xml</file>
-            <description>Abandon message from queue or subscription based on messageLockToken. Abandon processing of the message for 
-the time being, returning the message immediately back to the queue to be picked up by another (or the same) 
-receiver.
-&#x60;&#x60;&#x60;ballerina
-asb:Message message &#x3D; ...;
-check receiver-&gt;abandon(message);
-&#x60;&#x60;&#x60;
-</description>
+            <description>Abandon message from queue or subscription based on messageLockToken. Abandon processing of the message for</description>
         </component>
         <component name="MessageReceiver_receiveDeferred">
             <displayName>receive deferred</displayName>
             <file>receiveDeferred.xml</file>
-            <description>Receives a deferred Message. Deferred messages can only be received by using sequence number and return
-Message object.
-&#x60;&#x60;&#x60;ballerina
-asb:Message? message &#x3D; check receiver-&gt;receiveDeferred(1);
-&#x60;&#x60;&#x60;
-</description>
+            <description>Receives a deferred Message. Deferred messages can only be received by using sequence number and return</description>
         </component>
         <component name="MessageReceiver_receiveBatch">
             <displayName>receive batch</displayName>
             <file>receiveBatch.xml</file>
-            <description>Receive batch of messages from queue or subscription.
-&#x60;&#x60;&#x60;ballerina
-asb:MessageBatch batch &#x3D; check receiver-&gt;receiveBatch(10);
-&#x60;&#x60;&#x60;
-</description>
+            <description>Receive batch of messages from queue or subscription.</description>
         </component>
         <component name="MessageReceiver_complete">
             <displayName>complete</displayName>
             <file>complete.xml</file>
-            <description>Complete message from queue or subscription based on messageLockToken. Declares the message processing to be 
-successfully completed, removing the message from the queue.
-&#x60;&#x60;&#x60;ballerina
-asb:Message message &#x3D; ...;
-check receiver-&gt;complete(message);
-&#x60;&#x60;&#x60;
-</description>
+            <description>Complete message from queue or subscription based on messageLockToken. Declares the message processing to be</description>
         </component>
         <component name="MessageReceiver_deadLetter">
             <displayName>dead letter</displayName>
             <file>deadLetter.xml</file>
-            <description>Dead-Letter the message &amp; moves the message to the Dead-Letter Queue based on messageLockToken. Transfer 
-the message from the primary queue into a special &quot;dead-letter sub-queue&quot;.
-&#x60;&#x60;&#x60;ballerina
-asb:Message message &#x3D; ...;
-check receiver-&gt;deadLetter(message);
-&#x60;&#x60;&#x60;
-</description>
+            <description>Dead-Letter the message &amp; moves the message to the Dead-Letter Queue based on messageLockToken. Transfer</description>
         </component>
         <component name="MessageReceiver_close">
             <displayName>close</displayName>
             <file>close.xml</file>
-            <description>Closes the ASB receiver connection.
-&#x60;&#x60;&#x60;ballerina
-check receiver-&gt;close();
-&#x60;&#x60;&#x60;
-</description>
+            <description>Closes the ASB receiver connection.</description>
         </component>
         </subComponents>
 </component>

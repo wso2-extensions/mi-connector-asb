@@ -312,6 +312,54 @@
                   }
                 },
                 {
+                  "type": "attributeGroup",
+                  "value": {
+                    "groupName": "Utc Offset",
+                    "collapsed": false,
+                    "elements": [
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "utcOffset_hours",
+                          "displayName": "hours",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "utcOffset_minutes",
+                          "displayName": "minutes",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+|\\$\\{.+\\})$"
+                        }
+                      },
+                      {
+                        "type": "attribute",
+                        "value": {
+                          "name": "utcOffset_seconds",
+                          "displayName": "seconds",
+                          "inputType": "stringOrExpression",
+                          "defaultValue": "",
+                          "required": false,
+                          "helpTip": "",
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(-?\\d+(\\.\\d+)?|\\$\\{.+\\})$"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
                   "type": "attribute",
                   "value": {
                     "name": "timeAbbrev",
