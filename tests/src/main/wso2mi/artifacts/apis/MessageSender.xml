@@ -45,7 +45,7 @@
                 <overwriteBody>true</overwriteBody>
                 <body>{${payload.body}}</body>
                 <contentType>{${payload.contentType}}</contentType>
-                <messageId></messageId>
+                <messageId>{${payload.messageId}}</messageId>
                 <to></to>
                 <replyTo></replyTo>
                 <replyToSessionId></replyToSessionId>

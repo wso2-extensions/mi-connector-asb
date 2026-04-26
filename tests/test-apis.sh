@@ -401,21 +401,43 @@ test_receiver_ops() {
 #   - response body does not contain an {"error":...} envelope
 #   - the message arrives on the subscription (receive returns a body)
 #
-# send_and_verify <name> <send_payload> <expected_body_substring>
+# send_and_verify <name> <send_payload_template> <expected_body_substring>
 #
-# Sends a message, then uses /receive (which returns the full Message record)
-# and asserts the body contains the expected substring. The Ballerina ASB
-# SDK surfaces the message body as a byte array even when the wire content
-# is UTF-8 text, so we decode the byte array to a string before matching.
+# <send_payload_template> is a JSON object string with the keys "body" and "contentType".
+# A unique "messageId" is injected into the payload before sending, then the receive
+# loop drains messages (auto-completing each) until it finds the message with that
+# matching messageId — or gives up after MAX_RECV iterations.
+#
+# Why messageId correlation: when this test group runs after others (e.g. test_receiver_ops),
+# the subscription often has stale undrained messages. Without correlation, /receive returns
+# whichever message comes first — usually a stale one — causing false-negative assertions.
+# The messageId is server-respected (Azure Service Bus stores it verbatim), so it's a
+# reliable per-test marker.
+#
+# The Ballerina ASB SDK surfaces the message body as a byte array even when the wire
+# content is UTF-8 text; decoded to a string before the substring assertion.
 send_and_verify() {
     local name="$1"
-    local send_payload="$2"
+    local send_payload_template="$2"
     local expect_body="$3"
 
-    local send_file recv_file
-    send_file=$(mktemp); recv_file=$(mktemp)
+    # Unique per-send marker. Survives the round-trip via Azure's messageId field.
+    # Hex chars only — Azure rejects messageId values with certain characters.
+    local marker
+    marker="msgid-$(date +%s%N)-$$-$RANDOM"
 
-    # Send
+    # Inject messageId into the payload JSON
+    local send_payload
+    send_payload=$(echo "$send_payload_template" | python3 -c "
+import sys, json
+d = json.loads(sys.stdin.read())
+d['messageId'] = '$marker'
+print(json.dumps(d))
+")
+
+    local send_file
+    send_file=$(mktemp)
+
     local send_http
     send_http=$(curl -s -o "$send_file" -w "%{http_code}" \
         -X POST "$BASE_URL/messagesender/sendWithContentType" \
@@ -433,59 +455,86 @@ send_and_verify() {
         [ "$send_has_error" = true ] && echo -e "       ${RED}^ Response contains error body${NC}"
         echo "$send_body" | python3 -m json.tool 2>/dev/null | sed 's/^/    /' || echo "    $send_body"
         ((fail++))
-        rm -f "$recv_file"
         return 1
     fi
-    echo -e "  ${GREEN}PASS${NC} [HTTP $send_http] Send: $name"
+    echo -e "  ${GREEN}PASS${NC} [HTTP $send_http] Send: $name (messageId=$marker)"
     ((pass++))
 
-    # Give the broker a brief moment to land the message on the subscription
+    # Give the broker a moment to make the message available on the subscription
     sleep 2
 
-    # Receive (returns full record with body as byte array) then drain via settle
-    local recv_http
-    recv_http=$(curl -s -o "$recv_file" -w "%{http_code}" \
-        -X GET "$BASE_URL/messagereceiver/receive" \
-        -H "$CONTENT_TYPE")
-    local recv_body
-    recv_body=$(cat "$recv_file"); rm -f "$recv_file"
+    # Loop receive+complete until we find OUR message (by messageId) or hit the cap.
+    # Each receive auto-completes whatever it picked up — stale messages get drained,
+    # ours gets validated when found.
+    local MAX_RECV=40
+    local found=false
+    local decoded=""
+    local matched_recv=""
+    local stale_count=0
 
-    if [ "$recv_http" -ne 200 ]; then
-        echo -e "  ${RED}FAIL${NC} [HTTP $recv_http] Receive: $name"
-        ((fail++))
-        return 1
-    fi
+    for i in $(seq 1 $MAX_RECV); do
+        local recv_file
+        recv_file=$(mktemp)
+        local recv_http
+        recv_http=$(curl -s -o "$recv_file" -w "%{http_code}" \
+            -X GET "$BASE_URL/messagereceiver/receive" \
+            -H "$CONTENT_TYPE")
+        local recv_body
+        recv_body=$(cat "$recv_file"); rm -f "$recv_file"
 
-    # Decode the body: bytes array → utf-8 string. If body is a scalar (string/number)
-    # the SDK still returns it under "body" — fall back to its string form.
-    local decoded
-    decoded=$(echo "$recv_body" | python3 -c "
+        if [ "$recv_http" -ne 200 ] || [ -z "$recv_body" ]; then
+            sleep 1; continue
+        fi
+
+        # Extract messageId and decode the body in a single python pass
+        local result
+        result=$(echo "$recv_body" | python3 -c "
 import sys, json
 try:
     msg = json.loads(sys.stdin.read())
+    mid = msg.get('messageId') or ''
     b = msg.get('body')
     if isinstance(b, list) and all(isinstance(x, int) for x in b):
-        print(bytes(b).decode('utf-8', errors='replace'))
+        decoded = bytes(b).decode('utf-8', errors='replace')
     else:
-        print(json.dumps(b) if b is not None else '')
-except Exception as e:
-    sys.stderr.write(str(e))
+        decoded = json.dumps(b) if b is not None else ''
+    print(mid + '\t' + decoded)
+except Exception:
+    print('\t')
 " 2>/dev/null)
 
+        local got_mid="${result%%	*}"
+        local got_body="${result#*	}"
+
+        # Always settle the message we received (avoid lock-loop)
+        curl -s -o /dev/null -X GET "$BASE_URL/messagereceiver/receiveAndComplete" -H "$CONTENT_TYPE" > /dev/null 2>&1
+
+        if [ "$got_mid" = "$marker" ]; then
+            found=true
+            decoded="$got_body"
+            matched_recv="$recv_body"
+            break
+        fi
+
+        ((stale_count++))
+    done
+
+    if [ "$found" = false ]; then
+        echo -e "  ${RED}FAIL${NC} Receive: $name — message with id=$marker not found after $MAX_RECV polls (drained $stale_count stale)"
+        ((fail++))
+        echo ""
+        return 1
+    fi
+
     if echo "$decoded" | grep -q -- "$expect_body"; then
-        echo -e "  ${GREEN}PASS${NC} [HTTP $recv_http] Receive: $name — decoded body contains '$expect_body'"
+        echo -e "  ${GREEN}PASS${NC} Receive: $name — decoded body contains '$expect_body' (drained $stale_count stale before match)"
         echo -e "       decoded: $decoded"
         ((pass++))
     else
-        echo -e "  ${RED}FAIL${NC} [HTTP $recv_http] Receive: $name — decoded body missing '$expect_body'"
+        echo -e "  ${RED}FAIL${NC} Receive: $name — decoded body missing '$expect_body'"
         echo -e "       decoded: $decoded"
-        echo "$recv_body" | python3 -m json.tool 2>/dev/null | sed 's/^/    /' || echo "    $recv_body"
         ((fail++))
     fi
-
-    # Drain: complete the received message so the next test starts clean.
-    # (receive above is PEEK_LOCK; without completion the message is re-delivered)
-    curl -s -o /dev/null -X GET "$BASE_URL/messagereceiver/receiveAndComplete" -H "$CONTENT_TYPE"
     echo ""
 }
 
