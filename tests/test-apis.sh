@@ -244,8 +244,10 @@ test_messages() {
 test_schedule() {
     print_header "SCHEDULE & CANCEL MESSAGE"
 
-    # API reads: body plus individual date fields: year, month, day, hour, minute, second
-    echo -e "  ${CYAN}Scheduling message...${NC}"
+    # API reads: body plus individual date fields (year/month/day/hour/minute/second)
+    # and utcOffset fields (utcHours/utcMinutes/utcSeconds) for timezone-aware scheduling.
+    # The utcOffset fields map to the Ballerina time:Civil utcOffset record.
+    echo -e "  ${CYAN}Scheduling message with UTC+5:30 offset...${NC}"
     SCHED_FILE=$(mktemp)
     SCHED_HTTP=$(curl -s -o "$SCHED_FILE" -w "%{http_code}" \
         -X POST "$BASE_URL/messagesender/schedule" \
@@ -253,7 +255,8 @@ test_schedule() {
         -d '{
             "body": "Scheduled message from test-apis.sh",
             "year": "2099", "month": "01", "day": "26",
-            "hour": "10", "minute": "30", "second": "00"
+            "hour": "10", "minute": "30", "second": "00",
+            "utcHours": "5", "utcMinutes": "30", "utcSeconds": "0"
         }')
     SCHED_RESP=$(cat "$SCHED_FILE")
     rm -f "$SCHED_FILE"
