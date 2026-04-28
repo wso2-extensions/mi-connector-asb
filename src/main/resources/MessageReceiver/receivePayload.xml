@@ -27,6 +27,7 @@
         <property name="paramType0" value="int"/>
         <property name="param1" value="T"/>
         <property name="paramType1" value="typedesc"/>
+        <property name="param1_typedescDefault" value="json"/>
         <property name="param2" value="deadLettered"/>
         <property name="paramType2" value="boolean"/>
         <property name="paramSize" value="3"/>
