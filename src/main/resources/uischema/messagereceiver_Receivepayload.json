@@ -33,7 +33,7 @@
                   "type": "attribute",
                   "value": {
                     "name": "T",
-                    "displayName": "Response Payload Type",
+                    "displayName": "Output Type",
                     "inputType": "combo",
                     "comboValues": [
                       "json",
