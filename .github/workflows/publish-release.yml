@@ -18,6 +18,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Validate GitHub Bot Token
+        env:
+          BOT_TOKEN: ${{ secrets.WSO2_INTEGRATION_BOT_TOKEN }}
+        run: |
+          if [ -z "$BOT_TOKEN" ]; then
+            echo "ERROR: WSO2_INTEGRATION_BOT_TOKEN secret is not set"
+            exit 1
+          fi
+
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token $BOT_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/user)
+
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "ERROR: GitHub bot token is invalid or expired (HTTP status: $HTTP_STATUS)"
+            exit 1
+          fi
+
+          echo "GitHub bot token is valid (HTTP $HTTP_STATUS)"
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
