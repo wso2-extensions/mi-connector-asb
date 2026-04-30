@@ -17,6 +17,19 @@ paths:
       responses:
         default:
           description: Default response
+  /receivePayloadAs:
+    get:
+      parameters:
+      - name: t
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
   /receiveBatch/{count}:
     get:
       parameters:

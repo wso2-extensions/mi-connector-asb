@@ -17,46 +17,71 @@ paths:
               type: object
               required:
                 - body
+                - content
               properties:
                 body:
+                  type: object
+                  example: 
+                    message: "Hello from ASB"
+                    status: "active"
+                content:
                   type: string
-                  example: Hello from ASB
+                  example: "application/json"
+      responses:
+        default:
+          description: Default response
+  /sendWithContentType:
+    post:
+      requestBody:
+        description: Sample Payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+          application/xml:
+            schema:
+              type: object
+              xml:
+                name: payload
+        required: false
       responses:
         default:
           description: Default response
   /sendPayload:
     post:
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              type: object
               required:
-                - messagePayload
+              - messagePayload
+              type: object
               properties:
                 messagePayload:
                   type: string
                   example: Hello payload
+        required: true
       responses:
         default:
           description: Default response
   /schedule:
     post:
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              type: object
               required:
-                - body
-                - year
-                - month
-                - day
-                - hour
-                - minute
-                - second
+              - body
+              - day
+              - hour
+              - minute
+              - month
+              - second
+              - year
+              type: object
               properties:
                 body:
                   type: string
@@ -79,9 +104,10 @@ paths:
                 second:
                   type: string
                   example: "00"
+        required: true
       responses:
         default:
-          description: 'Returns {"sequenceNumber": <long>}'
+          description: "Returns {\"sequenceNumber\": <long>}"
   /cancel/{sequenceNumber}:
     get:
       parameters:
@@ -98,28 +124,28 @@ paths:
   /sendBatch:
     post:
       requestBody:
-        required: true
         content:
           application/json:
             schema:
-              type: object
               required:
-                - count
-                - batch
+              - batch
+              - count
+              type: object
               properties:
                 count:
                   type: integer
                   example: 2
                 batch:
                   type: array
+                  example:
+                  - body: Batch msg 1
+                  - body: Batch msg 2
                   items:
                     type: object
                     properties:
                       body:
                         type: string
-                  example:
-                    - body: Batch msg 1
-                    - body: Batch msg 2
+        required: true
       responses:
         default:
           description: Default response

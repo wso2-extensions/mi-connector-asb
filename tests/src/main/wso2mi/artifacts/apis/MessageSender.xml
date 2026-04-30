@@ -3,11 +3,50 @@
     <resource methods="POST" uri-template="/send">
         <inSequence>
             <asb.MessageSender_send configKey="messageSender_connection">
-                <responseVariable>asb_MessageSender_send_1</responseVariable>
+    <responseVariable >asb_MessageSender_send_1</responseVariable>
+    <overwriteBody >false</overwriteBody>
+    <body >{${payload.body}}</body>
+    <contentType >{${payload.content}}</contentType>
+    <messageId ></messageId>
+    <to ></to>
+    <replyTo ></replyTo>
+    <replyToSessionId ></replyToSessionId>
+    <label ></label>
+    <sessionId ></sessionId>
+    <correlationId ></correlationId>
+    <partitionKey ></partitionKey>
+    <timeToLive ></timeToLive>
+    <sequenceNumber ></sequenceNumber>
+    <lockToken ></lockToken>
+    <applicationProperties_properties ></applicationProperties_properties>
+    <deliveryCount ></deliveryCount>
+    <enqueuedTime ></enqueuedTime>
+    <enqueuedSequenceNumber ></enqueuedSequenceNumber>
+    <deadLetterErrorDescription ></deadLetterErrorDescription>
+    <deadLetterReason ></deadLetterReason>
+    <deadLetterSource ></deadLetterSource>
+    <state ></state>
+</asb.MessageSender_send>
+
+<respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
+    <!--
+      Exercises the dynamic contentType + anydata body path that previously
+      produced ClassCastException (ErrorValue vs MapValueImpl) when contentType
+      was "application/json" with a non-JSON-parseable string body.
+    -->
+    <resource methods="POST" uri-template="/sendWithContentType">
+        <inSequence>
+            <asb.MessageSender_send configKey="messageSender_connection">
+                <responseVariable>asb_MessageSender_sendWithContentType_1</responseVariable>
                 <overwriteBody>true</overwriteBody>
                 <body>{${payload.body}}</body>
-                <contentType></contentType>
-                <messageId></messageId>
+                <contentType>{${payload.contentType}}</contentType>
+                <messageId>{${payload.messageId}}</messageId>
                 <to></to>
                 <replyTo></replyTo>
                 <replyToSessionId></replyToSessionId>

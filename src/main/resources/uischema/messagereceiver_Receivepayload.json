@@ -30,6 +30,22 @@
               "groupName": "Input Variables",
               "elements": [
                 {
+                  "type": "attribute",
+                  "value": {
+                    "name": "T",
+                    "displayName": "Output Type",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "json",
+                      "xml",
+                      "string"
+                    ],
+                    "defaultValue": "json",
+                    "required": "false",
+                    "helpTip": "Type to bind the received message body to. Pick 'json' for JSON payloads, 'xml' for XML, or 'string' for plain-text/binary content."
+                  }
+                },
+                {
                   "type": "attributeGroup",
                   "value": {
                     "groupName": "Advanced",

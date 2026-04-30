@@ -213,8 +213,8 @@
                           "defaultValue": "",
                           "required": false,
                           "helpTip": "Expecting JSON object with key-value pairs",
-                          "validateType": "json",
-                          "matchPattern": ""
+                          "validateType": "regex",
+                          "matchPattern": "^$|^(\\\\{[\\\\s\\\\S]*\\\\}|\\\\$\\\\{.+\\\\})$"
                         }
                       }
                     ]

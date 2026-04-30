@@ -28,6 +28,26 @@
             <sequence key="CommonFaultSequence"/>
         </faultSequence>
     </resource>
+    <!--
+      Variant of /receivePayload that exposes the new T combo (json|xml|string)
+      via the ?t= query parameter. Used by test-apis.sh's test_receivepayload_combo
+      to exercise the typedesc resolution path on the runtime.
+    -->
+    <resource methods="GET" uri-template="/receivePayloadAs?t={t}">
+        <inSequence>
+            <asb.MessageReceiver_receivePayload configKey="asb_messagereceiver_connection">
+                <responseVariable>asb_MessageReceiver_receivePayloadAs_1</responseVariable>
+                <overwriteBody>true</overwriteBody>
+                <serverWaitTime>10</serverWaitTime>
+                <T>{${params.queryParams.t}}</T>
+                <deadLettered>false</deadLettered>
+            </asb.MessageReceiver_receivePayload>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="CommonFaultSequence"/>
+        </faultSequence>
+    </resource>
     <resource methods="GET" uri-template="/receiveBatch/{count}">
         <inSequence>
             <asb.MessageReceiver_receiveBatch configKey="asb_messagereceiver_connection">
