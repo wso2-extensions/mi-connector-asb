@@ -27,10 +27,12 @@ jobs:
             exit 1
           fi
 
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+          HEADERS=$(curl -s -I \
             -H "Authorization: token $BOT_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/user)
+
+          HTTP_STATUS=$(echo "$HEADERS" | grep "^HTTP" | awk '{print $2}')
 
           if [ "$HTTP_STATUS" -ne 200 ]; then
             echo "ERROR: GitHub bot token is invalid or expired (HTTP status: $HTTP_STATUS)"
@@ -38,6 +40,16 @@ jobs:
           fi
 
           echo "GitHub bot token is valid (HTTP $HTTP_STATUS)"
+
+          SCOPES=$(echo "$HEADERS" | grep -i "x-oauth-scopes:" | sed 's/x-oauth-scopes://i' | tr -d ' \r')
+          echo "Token scopes: $SCOPES"
+
+          if ! echo "$SCOPES" | grep -qE "read:packages|write:packages"; then
+            echo "ERROR: Token is missing required scope: read:packages (current scopes: $SCOPES)"
+            exit 1
+          fi
+
+          echo "Token has required read:packages scope"
 
       - name: Checkout
         uses: actions/checkout@v4
