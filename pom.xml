@@ -21,7 +21,7 @@
 
   <groupId>org.wso2.integration.connector</groupId>
   <artifactId>mi-connector-asb</artifactId>
-  <version>1.0.1-jdk17-SNAPSHOT</version>
+  <version>1.0.1-jdk17</version>
 
   <name>WSO2 Carbon - Azure Service Bus Connector</name>
   <url>http://wso2.org</url>
@@ -96,7 +96,7 @@
     <connection>scm:git:https://github.com/wso2-extensions/mi-connector-asb.git</connection>
     <url>https://github.com/wso2-extensions/mi-connector-asb.git</url>
     <developerConnection>scm:git:https://github.com/wso2-extensions/mi-connector-asb</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v1.0.1-jdk17</tag>
   </scm>
   <build>
     <plugins>
@@ -196,9 +196,7 @@
             </goals>
             <configuration>
               <target>
-                <copy file="${project.build.directory}/${connector.name}-connector-${project.version}.zip"
-                      todir="${project.basedir}/tests/src/main/wso2mi/resources/connectors"
-                      overwrite="true"/>
+                <copy file="${project.build.directory}/${connector.name}-connector-${project.version}.zip" todir="${project.basedir}/tests/src/main/wso2mi/resources/connectors" overwrite="true" />
               </target>
             </configuration>
           </execution>
