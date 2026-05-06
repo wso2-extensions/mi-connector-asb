@@ -30,6 +30,22 @@
               "groupName": "Input Variables",
               "elements": [
                 {
+                  "type": "attribute",
+                  "value": {
+                    "name": "returnType",
+                    "displayName": "Message Body Type",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "json",
+                      "xml",
+                      "text"
+                    ],
+                    "defaultValue": "json",
+                    "required": false,
+                    "helpTip": "Expected type of the message body. Determines how the body is bound when receiving the message."
+                  }
+                },
+                {
                   "type": "attributeGroup",
                   "value": {
                     "groupName": "Advanced",

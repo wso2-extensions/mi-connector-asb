@@ -19,13 +19,25 @@
 package io.ballerina.stdlib.mi.executor;
 
 import com.azure.messaging.servicebus.ServiceBusReceivedMessage;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import org.apache.axiom.om.OMAbstractFactory;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.OMFactory;
 import io.ballerina.lib.asb.util.ASBConstants;
 import io.ballerina.runtime.api.Module;
+import io.ballerina.runtime.api.PredefinedTypes;
 import io.ballerina.runtime.api.Runtime;
 import io.ballerina.runtime.api.async.Callback;
 import io.ballerina.runtime.api.async.StrandMetadata;
+import io.ballerina.runtime.api.creators.TypeCreator;
 import io.ballerina.runtime.api.creators.ValueCreator;
+import io.ballerina.runtime.api.flags.SymbolFlags;
+import io.ballerina.runtime.api.types.Field;
+import io.ballerina.runtime.api.types.Type;
 import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.*;
 import io.ballerina.stdlib.mi.*;
@@ -39,6 +51,7 @@ import org.apache.synapse.data.connector.ConnectorResponse;
 import org.apache.synapse.data.connector.DefaultConnectorResponse;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -108,8 +121,9 @@ public class BalExecutor {
 
     /**
      * Invokes a method on a BObject using the async API and waits for completion.
+     * If returnType is non-null, it is passed to the runtime for type-guided binding.
      */
-    private Object invokeMethodSync(Runtime rt, BObject bObject, String methodName, Object[] args)
+    private Object invokeMethodSync(Runtime rt, BObject bObject, String methodName, Object[] args, Type returnType)
             throws BallerinaExecutionException {
         SyncCallback callback = new SyncCallback();
         StrandMetadata metadata = new StrandMetadata(
@@ -120,8 +134,61 @@ public class BalExecutor {
         );
 
         Object[] interleavedArgs = toInterleavedArgs(args);
-        rt.invokeMethodAsync(bObject, methodName, null, metadata, callback, interleavedArgs);
+        if (returnType != null) {
+            rt.invokeMethodAsync(bObject, methodName, null, metadata, callback, null, returnType, interleavedArgs);
+        } else {
+            rt.invokeMethodAsync(bObject, methodName, null, metadata, callback, interleavedArgs);
+        }
         return callback.waitForResult(TIMEOUT_SECONDS);
+    }
+
+    private Type buildMessageReturnType(String returnTypeName) {
+        Module module = BalConnectorConfig.getModule();
+
+        Type bodyType = switch (returnTypeName) {
+            case Constants.JSON -> PredefinedTypes.TYPE_JSON;
+            case Constants.TEXT -> PredefinedTypes.TYPE_STRING;
+            case Constants.XML -> PredefinedTypes.TYPE_XML;
+            default -> PredefinedTypes.TYPE_ANYDATA;
+        };
+
+        Map<String, Field> appPropFields = new LinkedHashMap<>();
+        appPropFields.put(ASBConstants.PROPERTIES, TypeCreator.createField(
+                TypeCreator.createMapType(PredefinedTypes.TYPE_ANYDATA),
+                ASBConstants.PROPERTIES,
+                SymbolFlags.PUBLIC | SymbolFlags.OPTIONAL));
+        Type appPropType = TypeCreator.createRecordType(
+                ASBConstants.APPLICATION_PROPERTY_TYPE, module, SymbolFlags.PUBLIC, appPropFields, null, true, 0);
+
+        long pub = SymbolFlags.PUBLIC;
+        long pubOpt = SymbolFlags.PUBLIC | SymbolFlags.OPTIONAL;
+        long pubOptRo = SymbolFlags.PUBLIC | SymbolFlags.OPTIONAL | SymbolFlags.READONLY;
+
+        Map<String, Field> fields = new LinkedHashMap<>();
+        fields.put(ASBConstants.BODY, TypeCreator.createField(bodyType, ASBConstants.BODY, pub));
+        fields.put(ASBConstants.CONTENT_TYPE, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.CONTENT_TYPE, pub));
+        fields.put(ASBConstants.MESSAGE_ID, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.MESSAGE_ID, pubOpt));
+        fields.put(ASBConstants.TO, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.TO, pubOpt));
+        fields.put(ASBConstants.REPLY_TO, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.REPLY_TO, pubOpt));
+        fields.put(ASBConstants.REPLY_TO_SESSION_ID, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.REPLY_TO_SESSION_ID, pubOpt));
+        fields.put(ASBConstants.LABEL, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.LABEL, pubOpt));
+        fields.put(ASBConstants.SESSION_ID, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.SESSION_ID, pubOpt));
+        fields.put(ASBConstants.CORRELATION_ID, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.CORRELATION_ID, pubOpt));
+        fields.put(ASBConstants.PARTITION_KEY, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.PARTITION_KEY, pubOpt));
+        fields.put(ASBConstants.TIME_TO_LIVE, TypeCreator.createField(PredefinedTypes.TYPE_INT, ASBConstants.TIME_TO_LIVE, pubOpt));
+        fields.put(ASBConstants.SEQUENCE_NUMBER, TypeCreator.createField(PredefinedTypes.TYPE_INT, ASBConstants.SEQUENCE_NUMBER, pubOptRo));
+        fields.put(ASBConstants.LOCK_TOKEN, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.LOCK_TOKEN, pubOptRo));
+        fields.put(ASBConstants.APPLICATION_PROPERTY_KEY, TypeCreator.createField(appPropType, ASBConstants.APPLICATION_PROPERTY_KEY, pubOpt));
+        fields.put(ASBConstants.DELIVERY_COUNT, TypeCreator.createField(PredefinedTypes.TYPE_INT, ASBConstants.DELIVERY_COUNT, pubOpt));
+        fields.put(ASBConstants.ENQUEUED_TIME, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.ENQUEUED_TIME, pubOpt));
+        fields.put(ASBConstants.ENQUEUED_SEQUENCE_NUMBER, TypeCreator.createField(PredefinedTypes.TYPE_INT, ASBConstants.ENQUEUED_SEQUENCE_NUMBER, pubOpt));
+        fields.put(ASBConstants.DEAD_LETTER_ERROR_DESCRIPTION, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.DEAD_LETTER_ERROR_DESCRIPTION, pubOpt));
+        fields.put(ASBConstants.DEAD_LETTER_REASON, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.DEAD_LETTER_REASON, pubOpt));
+        fields.put(ASBConstants.DEAD_LETTER_SOURCE, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.DEAD_LETTER_SOURCE, pubOpt));
+        fields.put(ASBConstants.STATE, TypeCreator.createField(PredefinedTypes.TYPE_STRING, ASBConstants.STATE, pubOpt));
+
+        return TypeCreator.createRecordType(
+                ASBConstants.MESSAGE_RECORD, module, SymbolFlags.PUBLIC, fields, null, true, 0);
     }
 
     /**
@@ -150,6 +217,7 @@ public class BalExecutor {
 
         try {
             Object result;
+            String responseBodyType = null;
             if (callable instanceof Module) {
                 String functionName = SynapseUtils.getPropertyAsString(context, Constants.FUNCTION_NAME);
                 result = invokeFunctionSync(rt, functionName, args);
@@ -167,13 +235,28 @@ public class BalExecutor {
                         throw new SynapseException("Neither jvmMethodName nor paramFunctionName is available for resource function invocation");
                     }
                     Object[] argsWithPathParams = paramHandler.prependPathParams(args, context);
-                    result = invokeMethodSync(rt, bObject, jvmMethodName, argsWithPathParams);
+                    result = invokeMethodSync(rt, bObject, jvmMethodName, argsWithPathParams, null);
                 } else {
                     String functionName = SynapseUtils.getPropertyAsString(context, Constants.FUNCTION_NAME);
                     if (MESSAGE_SETTLEMENT_FUNCTIONS.contains(functionName)) {
                         restoreNativeMessage(context, args);
                     }
-                    result = invokeMethodSync(rt, bObject, functionName, args);
+
+                    Object returnTypeParam = SynapseUtils.lookupTemplateParameter(context, Constants.RETURN_TYPE);
+                    if (returnTypeParam != null && !returnTypeParam.toString().isEmpty()) {
+                        responseBodyType = returnTypeParam.toString();
+                    }
+                    Type returnType = responseBodyType != null ? buildMessageReturnType(responseBodyType) : null;
+                    if (returnType != null) {
+                        for (int i = 0; i < args.length; i++) {
+                            if (Constants.TYPEDESC.equals(SynapseUtils.getPropertyAsString(context, "paramType" + i))
+                                    && "T".equals(SynapseUtils.getPropertyAsString(context, "param" + i))) {
+                                args[i] = ValueCreator.createTypedescValue(returnType);
+                                break;
+                            }
+                        }
+                    }
+                    result = invokeMethodSync(rt, bObject, functionName, args, returnType);
                     if (PERSIST_NEEDED_FUNCTIONS.contains(functionName)){
                         persistNativeMessage(context, result);
                     }
@@ -185,7 +268,7 @@ public class BalExecutor {
             if (result instanceof BError bError) {
                 throw new BallerinaExecutionException(bError.getMessage(), bError.fillInStackTrace());
             }
-            Object processedResult = processResponse(result);
+            Object processedResult = processResponse(result, responseBodyType);
 
             ConnectorResponse connectorResponse = new DefaultConnectorResponse();
             String resultProperty = getResultProperty(context);
@@ -292,27 +375,67 @@ public class BalExecutor {
         return (ServiceBusReceivedMessage) message.getNativeData(ASBConstants.NATIVE_MESSAGE);
     }
 
-    private Object processResponse(Object result) {
+    private Object processResponse(Object result, String responseBodyType) {
         if (result == null) return null;
         if (result instanceof BXml) return BXmlConverter.toOMElement((BXml) result);
         if (result instanceof BDecimal) return ((BDecimal) result).value().toString();
         if (result instanceof BString) return ((BString) result).getValue();
         if (result instanceof BArray) return JsonParser.parseString(TypeConverter.arrayToJsonString((BArray) result));
         if (result instanceof BMap) {
-            // In Ballerina 2201.10.0, generated record types implement BMap but getJSONString() may return empty
-            // Use stringValue(null) or fallback to toString() which returns valid JSON
-            BMap<?, ?> bMap = (BMap<?, ?>) result;
-            String jsonStr = bMap.stringValue(null);
-            if (jsonStr == null || jsonStr.isEmpty()) {
-                jsonStr = result.toString();
+            if (Constants.XML.equals(responseBodyType)) {
+                return bMapToOMElement((BMap<?, ?>) result);
             }
-            return JsonParser.parseString(jsonStr);
+            return bMapToJsonObject((BMap<?, ?>) result);
         }
         if (result instanceof Long || result instanceof Integer || result instanceof Boolean || result instanceof Double || result instanceof Float) {
             return JsonParser.parseString(result.toString());
         }
         log.warn("Unhandled result type: " + result.getClass().getSimpleName() + ", returning as-is");
         return result;
+    }
+
+    private OMElement bMapToOMElement(BMap<?, ?> bMap) {
+        OMFactory factory = OMAbstractFactory.getOMFactory();
+        String typeName = bMap.getType().getName();
+        OMElement root = factory.createOMElement(typeName.isEmpty() ? "Message" : typeName, null);
+        for (Map.Entry<?, ?> entry : bMap.entrySet()) {
+            String key = entry.getKey().toString();
+            Object value = entry.getValue();
+            OMElement child = factory.createOMElement(key, null);
+            if (value instanceof BXml bXml) {
+                OMElement xmlElement = BXmlConverter.toOMElement(bXml);
+                if (xmlElement != null) {
+                    child.addChild(BXmlConverter.toOMElement(bXml));
+                }
+            } else if (value instanceof BMap) {
+                child.addChild(bMapToOMElement((BMap<?, ?>) value));
+            } else if (value != null) {
+                child.setText(value.toString());
+            }
+            root.addChild(child);
+        }
+        return root;
+    }
+
+    private JsonObject bMapToJsonObject(BMap<?, ?> bMap) {
+        JsonObject jsonObject = new JsonObject();
+        for (Map.Entry<?, ?> entry : bMap.entrySet()) {
+            jsonObject.add(entry.getKey().toString(), bValueToJsonElement(entry.getValue()));
+        }
+        return jsonObject;
+    }
+
+    private JsonElement bValueToJsonElement(Object value) {
+        if (value == null) return JsonNull.INSTANCE;
+        if (value instanceof BString) return new JsonPrimitive(((BString) value).getValue());
+        if (value instanceof Long) return new JsonPrimitive((Long) value);
+        if (value instanceof Double) return new JsonPrimitive((Double) value);
+        if (value instanceof Boolean) return new JsonPrimitive((Boolean) value);
+        if (value instanceof BDecimal) return new JsonPrimitive(((BDecimal) value).value());
+        if (value instanceof BMap) return bMapToJsonObject((BMap<?, ?>) value);
+        if (value instanceof BArray) return JsonParser.parseString(TypeConverter.arrayToJsonString((BArray) value));
+        if (value instanceof BXml) return new JsonPrimitive(((BXml) value).stringValue(null));
+        return new JsonPrimitive(value.toString());
     }
 
     private static String getResultProperty(MessageContext context) {
