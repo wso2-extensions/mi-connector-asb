@@ -22,6 +22,7 @@
     <parameter name="serverWaitTime" description=""/>
     <parameter name="T" description=""/>
     <parameter name="deadLettered" description=""/>
+    <parameter name="returnType" description="Expected type of the message body (json, text, xml, byte). Determines how the body is bound when receiving the message."/>
     <sequence>
         <property name="param0" value="serverWaitTime"/>
         <property name="paramType0" value="int"/>

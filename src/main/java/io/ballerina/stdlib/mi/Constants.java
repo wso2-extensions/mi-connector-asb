@@ -32,6 +32,7 @@ public class Constants {
     public static final String DECIMAL = "decimal";
     public static final String JSON = "json";
     public static final String XML = "xml";
+    public static final String TEXT = "text";
     public static final String UNION = "union";
     public static final String RECORD = "record";
     public static final String ARRAY = "array";

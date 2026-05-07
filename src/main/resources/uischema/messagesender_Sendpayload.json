@@ -2,7 +2,7 @@
   "connectorName": "asb",
   "operationName": "MessageSender_sendPayload",
   "title": "send payload",
-  "help": "Send message to queue or topic with a message body.\n",
+  "help": "Send message to queue or topic with a message body. The payload is sent as application/octet-stream to Azure Service Bus.\n",
   "elements": [
     {
       "type": "attributeGroup",

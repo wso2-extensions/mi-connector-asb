@@ -75,6 +75,22 @@
                 {
                   "type": "attribute",
                   "value": {
+                    "name": "returnType",
+                    "displayName": "Message Body Type",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "json",
+                      "xml",
+                      "text"
+                    ],
+                    "defaultValue": "json",
+                    "required": false,
+                    "helpTip": "Expected type of the message body. Determines how the body is bound when receiving the message."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
                     "name": "responseVariable",
                     "displayName": "Output Variable Name",
                     "inputType": "string",

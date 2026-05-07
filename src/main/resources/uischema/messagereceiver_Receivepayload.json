@@ -2,7 +2,7 @@
   "connectorName": "asb",
   "operationName": "MessageReceiver_receivePayload",
   "title": "receive payload",
-  "help": "Receive message payload from queue or subscription.\n",
+  "help": "Receive message payload from queue or subscription. \nNote: This operation can only be used in Receive and Delete mode and is not compatible with Peek Lock mode.\n",
   "elements": [
     {
       "type": "attributeGroup",
@@ -29,22 +29,6 @@
             "value": {
               "groupName": "Input Variables",
               "elements": [
-                {
-                  "type": "attribute",
-                  "value": {
-                    "name": "T",
-                    "displayName": "Output Type",
-                    "inputType": "combo",
-                    "comboValues": [
-                      "json",
-                      "xml",
-                      "string"
-                    ],
-                    "defaultValue": "json",
-                    "required": "false",
-                    "helpTip": "Type to bind the received message body to. Pick 'json' for JSON payloads, 'xml' for XML, or 'string' for plain-text/binary content."
-                  }
-                },
                 {
                   "type": "attributeGroup",
                   "value": {
@@ -88,6 +72,22 @@
             "value": {
               "groupName": "Output",
               "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "T",
+                    "displayName": "Output Type",
+                    "inputType": "combo",
+                    "comboValues": [
+                      "json",
+                      "xml",
+                      "string"
+                    ],
+                    "defaultValue": "json",
+                    "required": "false",
+                    "helpTip": "Type to bind the received message body to. Pick 'json' for JSON payloads, 'xml' for XML, or 'string' for plain-text/binary content."
+                  }
+                },
                 {
                   "type": "attribute",
                   "value": {
