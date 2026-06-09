@@ -20,9 +20,10 @@ package io.ballerina.stdlib.mi;
 
 import io.ballerina.runtime.api.values.BObject;
 import io.ballerina.stdlib.mi.executor.BalExecutor;
+import io.ballerina.stdlib.mi.utils.SynapseUtils;
 import org.apache.axis2.AxisFault;
 import org.apache.synapse.MessageContext;
-import org.apache.synapse.SynapseConstants;
+import org.apache.synapse.SynapseException;
 import org.wso2.integration.connector.core.AbstractConnector;
 import org.wso2.integration.connector.core.ConnectException;
 import org.wso2.integration.connector.core.connection.ConnectionHandler;
@@ -38,7 +39,11 @@ public class BalConnectorFunction extends AbstractConnector {
     public void connect(MessageContext messageContext) throws ConnectException {
         String connectorName = BalConnectorConfig.getModule().getName();
         ConnectionHandler handler = ConnectionHandler.getConnectionHandler();
-        BalConnectorConnection balConnection = (BalConnectorConnection) handler.getConnection(connectorName, messageContext.getProperty("connectionName").toString());
+        Object connectionNameObj = messageContext.getProperty("connectionName");
+        if (connectionNameObj == null) {
+            throw new ConnectException("Connection initialization failed.");
+        }
+        BalConnectorConnection balConnection = (BalConnectorConnection) handler.getConnection(connectorName, connectionNameObj.toString());
         BObject clientObj = balConnection.getBalConnectorObj();
 
         if (clientObj == null) {
@@ -46,11 +51,8 @@ public class BalConnectorFunction extends AbstractConnector {
         }
         try {
             balExecutor.execute(BalConnectorConfig.getRuntime(), clientObj, messageContext);
-        } catch (AxisFault | BallerinaExecutionException e) {
-            messageContext.setProperty(SynapseConstants.ERROR_CODE, "BALLERINA_EXECUTION_ERROR");
-            messageContext.setProperty(SynapseConstants.ERROR_MESSAGE, e.getMessage());
-            messageContext.setProperty(SynapseConstants.ERROR_DETAIL, e.getCause() != null ? e.getCause().toString() : e.toString());
-            messageContext.setProperty(SynapseConstants.ERROR_EXCEPTION, e);
+        } catch (AxisFault | BallerinaExecutionException | SynapseException e) {
+            SynapseUtils.setErrorProperties(messageContext, e);
             throw new ConnectException(e, e.getMessage());
         }
     }

@@ -22,6 +22,7 @@ import io.ballerina.stdlib.mi.Constants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.synapse.MessageContext;
+import org.apache.synapse.SynapseConstants;
 import org.apache.synapse.mediators.template.TemplateContext;
 import org.apache.synapse.util.xpath.SynapseExpression;
 
@@ -105,6 +106,13 @@ public class SynapseUtils {
         matcher.appendTail(resolved);
 
         return resolved.toString();
+    }
+
+    public static void setErrorProperties(MessageContext context, Exception e) {
+        context.setProperty(SynapseConstants.ERROR_CODE, "BALLERINA_EXECUTION_ERROR");
+        context.setProperty(SynapseConstants.ERROR_MESSAGE, e.getMessage());
+        context.setProperty(SynapseConstants.ERROR_DETAIL, e.getCause() != null ? e.getCause().toString() : e.toString());
+        context.setProperty(SynapseConstants.ERROR_EXCEPTION, e);
     }
 
     public static String cleanupJsonString(String json) {
