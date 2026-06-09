@@ -283,7 +283,10 @@ public class BalExecutor {
         } catch (BError bError) {
             log.error("BError caught during execution: " + bError.getMessage(), bError);
             throw new BallerinaExecutionException(bError.getMessage(), bError.fillInStackTrace());
-        } catch (AxisFault | BallerinaExecutionException e) {
+        } catch (BallerinaExecutionException e) {
+            log.error("Ballerina function execution failed: " + e.getMessage(), e);
+            throw e;
+        } catch (AxisFault | SynapseException e) {
             throw e;
         } catch (Exception e) {
             log.error("Unexpected error during execution: " + e.getMessage(), e);
@@ -295,14 +298,20 @@ public class BalExecutor {
     private void restoreNativeMessage(MessageContext context, Object[] args) {
         Object stored = context.getProperty(Constants.ASB_NATIVE_MESSAGE);
         if (!(stored instanceof Map<?, ?> nativeMessageMap)) {
-            return;
+            throw new SynapseException("Settlement failed: no received message available in the current context. " +
+                    "Ensure a receive operation was performed before attempting settlement.");
         }
 
         Object sequenceNumber = SynapseUtils.lookupTemplateParameter(context, "sequenceNumber");
-        String key = sequenceNumber != null ? sequenceNumber.toString() : null;
-        Object nativeMessage = key != null ? nativeMessageMap.get(key) : null;
+        String key = sequenceNumber != null ? sequenceNumber.toString() : "";
+        if (key.isEmpty()) {
+            throw new SynapseException("Settlement failed: 'sequenceNumber' is missing or empty. " +
+                    "Provide the sequence number of the received message.");
+        }
+        Object nativeMessage = nativeMessageMap.get(key);
         if (!(nativeMessage instanceof ServiceBusReceivedMessage receivedMessage)) {
-            return;
+            throw new SynapseException("Settlement failed: no active message found for sequenceNumber '" + key + "'. " +
+                    "The message may have already been settled or the lock may have expired.");
         }
         BMap<BString, Object> messageRecord = constructMessageRecord(receivedMessage);
         messageRecord.addNativeData(ASBConstants.NATIVE_MESSAGE, receivedMessage);
@@ -348,6 +357,9 @@ public class BalExecutor {
             }
             Object stored = context.getProperty(Constants.ASB_NATIVE_MESSAGE);
             if (!(stored instanceof Map<?, ?>)) {
+                log.error("ASB native message store in context is of unexpected type: " +
+                        (stored != null ? stored.getClass().getName() : "null") +
+                        ". Cannot persist native message.");
                 return;
             }
             Map<String, ServiceBusReceivedMessage> nativeMessageMap = (Map<String, ServiceBusReceivedMessage>) stored;
@@ -360,12 +372,18 @@ public class BalExecutor {
                     ServiceBusReceivedMessage nativeMsg = getNativeMessage(msg);
                     if (nativeMsg != null) {
                         nativeMessageMap.put(String.valueOf(nativeMsg.getSequenceNumber()), nativeMsg);
+                    } else {
+                        log.warn("Message at index " + i + " in the received batch does not contain a native " +
+                                "ServiceBusReceivedMessage. It will not be available for settlement operations.");
                     }
                 }
             } else {
                 ServiceBusReceivedMessage nativeMessage = getNativeMessage(resultMap);
                 if (nativeMessage != null) {
                     nativeMessageMap.put(String.valueOf(nativeMessage.getSequenceNumber()), nativeMessage);
+                } else {
+                    log.warn("The received message does not contain a native ServiceBusReceivedMessage. " +
+                            "It will not be available for settlement operations.");
                 }
             }
         }

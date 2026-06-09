@@ -35,6 +35,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.synapse.MessageContext;
 import org.apache.synapse.SynapseException;
 
+import javax.xml.stream.XMLStreamException;
+
 import static io.ballerina.stdlib.mi.Constants.*;
 
 public class ParamHandler {
@@ -470,23 +472,22 @@ public class ParamHandler {
         return value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
     }
 
-    private BXml getBXmlParameter(MessageContext context, String parameterName) {
+    private BXml getBXmlParameter(MessageContext context, String parameterName) throws XMLStreamException {
         OMElement omElement = getOMElement(context, parameterName);
         if (omElement == null) return null;
         return OMElementConverter.toBXml(omElement);
     }
 
-    private OMElement getOMElement(MessageContext ctx, String value) {
+    private OMElement getOMElement(MessageContext ctx, String value) throws XMLStreamException {
         String param = ctx.getProperty(value).toString();
         Object paramValue = SynapseUtils.lookupTemplateParameter(ctx, param);
-        if (paramValue != null) {
-            if (paramValue instanceof OMElement) return (OMElement) paramValue;
-            try {
-                return AXIOMUtil.stringToOM((String) SynapseUtils.lookupTemplateParameter(ctx, param));
-            } catch (Exception ignored) {}
+        if (paramValue instanceof OMElement) {
+            return (OMElement) paramValue;
         }
-        log.error("Error in getting the OMElement");
-        return null;
+        if (paramValue == null) {
+            return null;
+        }
+        return AXIOMUtil.stringToOM((String) paramValue);
     }
 
     /**
