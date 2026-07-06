@@ -22,6 +22,7 @@
         <dependency component="Administrator"/>
         <dependency component="MessageReceiver"/>
         <dependency component="MessageSender"/>
+        <dependency component="consumer"/>
         <description>## Overview
 
 The [Azure Service Bus](https://docs.microsoft.com/en-us/azure/service-bus-messaging/) is a fully managed enterprise message broker with message queues and publish-subscribe topics. It

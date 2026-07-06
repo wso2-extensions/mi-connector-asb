@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xmlns="http://ws.apache.org/ns/synapse" name="consumer_deadLetter">
+    <parameter name="responseVariable" description="The target variable in which the output of the operation will be stored"/>
+    <parameter name="overwriteBody" description="Replace the Message Body in Message Context with the output payload of the operation"/>
+    <parameter name="deadLetterReason" description="The reason for dead-lettering the message"/>
+    <parameter name="deadLetterErrorDescription" description="The error description for dead-lettering the message"/>
+    <sequence>
+        <class name="io.ballerina.stdlib.mi.settlement.InboundDeadLetter"/>
+    </sequence>
+</template>

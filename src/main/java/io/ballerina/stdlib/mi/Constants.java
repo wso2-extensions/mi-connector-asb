@@ -52,4 +52,21 @@ public class Constants {
     public static final String FUNCTION_TYPE_FUNCTION = "FUNCTION";
 
     public static final String ASB_NATIVE_MESSAGE = "_NATIVE_ASB_MESSAGE";
+
+    // Message-context property holding the CountDownLatch the listener blocks on.
+    public static final String ASB_INBOUND_SETTLEMENT_LATCH = "_ASB_INBOUND_SETTLEMENT_LATCH";
+
+    // Message-context property holding an AtomicReference<Map<String,String>> decision holder.
+    public static final String ASB_INBOUND_SETTLEMENT_DECISION = "_ASB_INBOUND_SETTLEMENT_DECISION";
+
+    // Keys within the decision map carried by the AtomicReference holder.
+    public static final String DECISION_KEY_ACTION = "action";
+    public static final String DECISION_KEY_DEAD_LETTER_REASON = "deadLetterReason";
+    public static final String DECISION_KEY_DEAD_LETTER_ERROR_DESCRIPTION = "deadLetterErrorDescription";
+
+    // Settlement action values stored under DECISION_KEY_ACTION.
+    public static final String SETTLEMENT_ACTION_COMPLETE = "complete";
+    public static final String SETTLEMENT_ACTION_ABANDON = "abandon";
+    public static final String SETTLEMENT_ACTION_DEFER = "defer";
+    public static final String SETTLEMENT_ACTION_DEAD_LETTER = "deadLetter";
 }

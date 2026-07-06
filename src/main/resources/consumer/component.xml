@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026, WSO2 LLC. (https://www.wso2.com).
+  ~
+  ~ WSO2 LLC. licenses this file to you under the Apache License,
+  ~ Version 2.0 (the "License"); you may not use this file except
+  ~ in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<component name="consumer" displayName="Message Settlement (Only For Event Integration)" type="synapse/template">
+    <subComponents>
+        <component name="consumer_complete">
+            <displayName>complete</displayName>
+            <file>complete.xml</file>
+            <description>Complete the current message in an ASB event integration flow. Declares the message processing to be successful. Event Integration-only.</description>
+        </component>
+        <component name="consumer_abandon">
+            <displayName>abandon</displayName>
+            <file>abandon.xml</file>
+            <description>Abandon the current message in an ASB event integration flow, returning it to the queue or subscription for redelivery. Event Integration-only.</description>
+        </component>
+        <component name="consumer_deadLetter">
+            <displayName>dead letter</displayName>
+            <file>deadLetter.xml</file>
+            <description>Dead-Letter the current message in an ASB event integration flow, moving it to the Dead-Letter Queue. Event Integration-only.</description>
+        </component>
+        <component name="consumer_defer">
+            <displayName>defer</displayName>
+            <file>defer.xml</file>
+            <description>Defer the current message in an ASB event integration flow. Deferred messages can only be received later by sequence number. Event Integration-only.</description>
+        </component>
+    </subComponents>
+</component>
