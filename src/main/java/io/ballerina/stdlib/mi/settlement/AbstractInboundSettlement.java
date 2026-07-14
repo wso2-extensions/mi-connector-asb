@@ -69,8 +69,9 @@ public abstract class AbstractInboundSettlement extends AbstractConnector {
             AtomicReference<Map<String, String>> decisionHolder = (AtomicReference<Map<String, String>>) holderObj;
 
             // Build the decision map: the action plus any operation-specific options (e.g. dead-letter
-            // reason). The holder object is shared with the listener (seeded before injection), so
-            // mutating it in place makes the decision visible even when the mediation context is cloned.
+            // reason). The AtomicReference holder is shared with the listener (seeded before injection),
+            // so compareAndSet-ing this new map into it makes the decision visible to the listener even
+            // when the mediation context is cloned (the clone copies the same holder reference).
             Map<String, String> decision = recordSettlementOptions(messageContext);
             decision.put(Constants.DECISION_KEY_ACTION, action);
 
