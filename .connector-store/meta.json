@@ -12,7 +12,7 @@
     "type": "Connector",
     "releases": [
         {
-            "tagName": "v1.0.3-jdk17",
+            "tagName": "v1.0.4-jdk17",
             "products": [
                 "MI 4.4.0",
                 "MI 4.5.0",
@@ -2325,6 +2325,104 @@
                 {
                     "name": "MessageReceiver_close",
                     "description": "close",
+                    "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "consumer_complete",
+                    "description": "complete (for event integration flow)",
+                    "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "consumer_abandon",
+                    "description": "abandon (for event integration flow)",
+                    "params": [
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "consumer_deadLetter",
+                    "description": "dead letter (for event integration flow)",
+                    "params": [
+                        {
+                            "name": "deadLetterReason",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The reason for dead-lettering the message"
+                        },
+                        {
+                            "name": "deadLetterErrorDescription",
+                            "type": "stringOrExpression",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The error description for dead-lettering the message"
+                        },
+                        {
+                            "name": "responseVariable",
+                            "type": "string",
+                            "required": false,
+                            "defaultValue": "",
+                            "description": "The target variable in which the output of the operation will be stored"
+                        },
+                        {
+                            "name": "overwriteBody",
+                            "type": "checkbox",
+                            "required": false,
+                            "defaultValue": "false",
+                            "description": "Replace the Message Body in Message Context with the output payload of the operation (This will remove the payload from the above variable. But other elements such as headers and attributes will remain)."
+                        }
+                    ],
+                    "isHidden": false
+                },
+                {
+                    "name": "consumer_defer",
+                    "description": "defer (for event integration flow)",
                     "params": [
                         {
                             "name": "responseVariable",
