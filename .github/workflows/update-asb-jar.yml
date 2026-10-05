@@ -24,7 +24,7 @@ jobs:
     env:
       ASB_VERSION: ${{ inputs.asb_version }}
       REPO_BASE: repo/io/ballerina/ballerinax-asb
-      GEN_OUT: ${{ runner.temp }}/asb-gen
+      GEN_OUT: ${{ github.workspace }}/../asb-gen
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
       GH_PKG_USERNAME: ${{ secrets.WSO2_INTEGRATION_BOT_USERNAME }}
