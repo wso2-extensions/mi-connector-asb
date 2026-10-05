@@ -24,7 +24,7 @@ jobs:
     env:
       ASB_VERSION: ${{ inputs.asb_version }}
       REPO_BASE: repo/io/ballerina/ballerinax-asb
-      GEN_OUT: ${{ github.workspace }}/asb-gen
+      GEN_OUT: ${{ runner.temp }}/asb-gen
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
       GH_PKG_USERNAME: ${{ secrets.WSO2_INTEGRATION_BOT_USERNAME }}
@@ -159,6 +159,9 @@ jobs:
           commit-message: "Update ballerinax-asb JAR to ${{ inputs.asb_version }}"
           branch: update-asb-jar-${{ inputs.asb_version }}
           delete-branch: true
+          add-paths: |
+            repo/**
+            pom.xml
           title: "Update ballerinax-asb JAR to ${{ inputs.asb_version }}"
           body: |
             This PR updates the `ballerinax-asb` JAR.
