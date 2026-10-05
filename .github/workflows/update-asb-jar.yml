@@ -119,18 +119,19 @@ jobs:
           # Generate the SHA1 checksum for the JAR.
           sha1sum "${TARGET_DIR}/${ARTIFACT}.jar" | awk '{print $1}' > "${TARGET_DIR}/${ARTIFACT}.jar.sha1"
 
-          # Generate the companion POM and its checksum.
-          cat > "${TARGET_DIR}/${ARTIFACT}.pom" <<EOF
-          <?xml version="1.0" encoding="UTF-8"?>
-          <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-                   xmlns="http://maven.apache.org/POM/4.0.0"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <modelVersion>4.0.0</modelVersion>
-            <groupId>io.ballerina</groupId>
-            <artifactId>ballerinax-asb</artifactId>
-            <version>${ASB_VERSION}</version>
-          </project>
-          EOF
+          # Generate the companion POM and its checksum. Emit with printf so there
+          # is no leading whitespace before the XML declaration (which would be invalid).
+          {
+            echo '<?xml version="1.0" encoding="UTF-8"?>'
+            echo '<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"'
+            echo '         xmlns="http://maven.apache.org/POM/4.0.0"'
+            echo '         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+            echo '  <modelVersion>4.0.0</modelVersion>'
+            echo '  <groupId>io.ballerina</groupId>'
+            echo '  <artifactId>ballerinax-asb</artifactId>'
+            echo "  <version>${ASB_VERSION}</version>"
+            echo '</project>'
+          } > "${TARGET_DIR}/${ARTIFACT}.pom"
           sha1sum "${TARGET_DIR}/${ARTIFACT}.pom" | awk '{print $1}' > "${TARGET_DIR}/${ARTIFACT}.pom.sha1"
 
       - name: Update version references in pom.xml
@@ -139,9 +140,13 @@ jobs:
         run: |
           set -euo pipefail
           if [[ "${CURRENT_VERSION}" != "${ASB_VERSION}" ]]; then
-            sed -i "s/ballerinax-asb-${CURRENT_VERSION}\.jar/ballerinax-asb-${ASB_VERSION}.jar/g" pom.xml
-            # Update the <version> of the io.ballerina:ballerinax-asb dependency.
-            sed -i "s#<artifactId>ballerinax-asb</artifactId>\(\s*\)<version>${CURRENT_VERSION}</version>#<artifactId>ballerinax-asb</artifactId>\1<version>${ASB_VERSION}</version>#g" pom.xml
+            # The old version string is unique to the ballerinax-asb artifact in this
+            # pom (both the <version> tag and the shaded JAR filename), so a single
+            # global replace updates every reference. Escape dots for the regex.
+            ESCAPED_CURRENT="$(printf '%s' "${CURRENT_VERSION}" | sed 's/\./\\./g')"
+            sed -i "s/${ESCAPED_CURRENT}/${ASB_VERSION}/g" pom.xml
+            echo "Updated pom.xml references from ${CURRENT_VERSION} to ${ASB_VERSION}:"
+            grep -n "ballerinax-asb\|${ASB_VERSION}" pom.xml || true
           fi
 
       - name: Verify build
