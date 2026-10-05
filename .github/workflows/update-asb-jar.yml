@@ -1,0 +1,144 @@
+name: Update ballerinax-asb JAR
+
+on:
+  workflow_dispatch:
+    inputs:
+      asb_version:
+        description: 'Target ballerinax/asb version to generate (e.g. 3.8.5)'
+        required: true
+        type: string
+      ballerina_version:
+        description: 'Ballerina distribution version'
+        required: false
+        default: '2201.10.5'
+        type: string
+      migen_version:
+        description: 'migen tool version to pull'
+        required: false
+        default: '0.9.0'
+        type: string
+
+jobs:
+  update-jar:
+    runs-on: ubuntu-latest
+    env:
+      ASB_VERSION: ${{ inputs.asb_version }}
+      REPO_BASE: repo/io/ballerina/ballerinax-asb
+      GEN_OUT: ${{ github.workspace }}/asb-gen
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.WSO2_INTEGRATION_BOT_TOKEN }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Set up Ballerina ${{ inputs.ballerina_version }}
+        uses: ballerina-platform/setup-ballerina@v1.1.0
+        with:
+          version: ${{ inputs.ballerina_version }}
+
+      - name: Pull migen tool ${{ inputs.migen_version }}
+        run: bal tool pull migen:${{ inputs.migen_version }}
+
+      - name: Generate connector for ballerinax/asb:${{ inputs.asb_version }}
+        run: |
+          set -euo pipefail
+          rm -rf "${GEN_OUT}"
+          mkdir -p "${GEN_OUT}"
+          bal migen connector --package ballerinax/asb:${ASB_VERSION} -o "${GEN_OUT}"
+
+      - name: Locate the generated JAR
+        id: jar
+        run: |
+          set -euo pipefail
+          SRC_JAR="${GEN_OUT}/generated/lib/ballerinax-asb-${ASB_VERSION}.jar"
+          if [[ ! -f "${SRC_JAR}" ]]; then
+            echo "ERROR: expected generated JAR not found at ${SRC_JAR}"
+            echo "Contents of ${GEN_OUT}:"
+            find "${GEN_OUT}" -name '*.jar' || true
+            exit 1
+          fi
+          echo "src_jar=${SRC_JAR}" >> "$GITHUB_OUTPUT"
+
+      - name: Determine current version in repo
+        id: current
+        run: |
+          set -euo pipefail
+          CURRENT_DIR=$(ls -d ${REPO_BASE}/*/ | xargs -n1 basename | sort -V | tail -n1)
+          echo "current_version=${CURRENT_DIR}" >> "$GITHUB_OUTPUT"
+          echo "Current version in repo: ${CURRENT_DIR}"
+
+      - name: Replace JAR in local maven repo layout
+        env:
+          SRC_JAR: ${{ steps.jar.outputs.src_jar }}
+          CURRENT_VERSION: ${{ steps.current.outputs.current_version }}
+        run: |
+          set -euo pipefail
+          TARGET_DIR="${REPO_BASE}/${ASB_VERSION}"
+          ARTIFACT="ballerinax-asb-${ASB_VERSION}"
+
+          # Remove the previous version directory if the version changed.
+          if [[ "${CURRENT_VERSION}" != "${ASB_VERSION}" && -d "${REPO_BASE}/${CURRENT_VERSION}" ]]; then
+            git rm -r "${REPO_BASE}/${CURRENT_VERSION}"
+          fi
+
+          mkdir -p "${TARGET_DIR}"
+          cp "${SRC_JAR}" "${TARGET_DIR}/${ARTIFACT}.jar"
+
+          # Generate the SHA1 checksum for the JAR.
+          sha1sum "${TARGET_DIR}/${ARTIFACT}.jar" | awk '{print $1}' > "${TARGET_DIR}/${ARTIFACT}.jar.sha1"
+
+          # Generate the companion POM and its checksum.
+          cat > "${TARGET_DIR}/${ARTIFACT}.pom" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+                   xmlns="http://maven.apache.org/POM/4.0.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <modelVersion>4.0.0</modelVersion>
+            <groupId>io.ballerina</groupId>
+            <artifactId>ballerinax-asb</artifactId>
+            <version>${ASB_VERSION}</version>
+          </project>
+          EOF
+          sha1sum "${TARGET_DIR}/${ARTIFACT}.pom" | awk '{print $1}' > "${TARGET_DIR}/${ARTIFACT}.pom.sha1"
+
+      - name: Update version references in pom.xml
+        env:
+          CURRENT_VERSION: ${{ steps.current.outputs.current_version }}
+        run: |
+          set -euo pipefail
+          if [[ "${CURRENT_VERSION}" != "${ASB_VERSION}" ]]; then
+            sed -i "s/ballerinax-asb-${CURRENT_VERSION}\.jar/ballerinax-asb-${ASB_VERSION}.jar/g" pom.xml
+            # Update the <version> of the io.ballerina:ballerinax-asb dependency.
+            sed -i "s#<artifactId>ballerinax-asb</artifactId>\(\s*\)<version>${CURRENT_VERSION}</version>#<artifactId>ballerinax-asb</artifactId>\1<version>${ASB_VERSION}</version>#g" pom.xml
+          fi
+
+      - name: Verify build
+        run: mvn clean install -B
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.WSO2_INTEGRATION_BOT_TOKEN }}
+          commit-message: "Update ballerinax-asb JAR to ${{ inputs.asb_version }}"
+          branch: update-asb-jar-${{ inputs.asb_version }}
+          delete-branch: true
+          title: "Update ballerinax-asb JAR to ${{ inputs.asb_version }}"
+          body: |
+            This PR updates the `ballerinax-asb` JAR.
+
+            - Ballerina distribution: `${{ inputs.ballerina_version }}`
+            - migen tool: `${{ inputs.migen_version }}`
+            - Generated via: `bal migen connector --package ballerinax/asb:${{ inputs.asb_version }}`
+            - New version: `${{ inputs.asb_version }}`
+
+            Generated automatically by the `Update ballerinax-asb JAR` workflow.
+          committer: ${{ secrets.WSO2_INTEGRATION_BOT_USERNAME }} <${{ secrets.WSO2_INTEGRATION_BOT_EMAIL }}>
+          author: ${{ secrets.WSO2_INTEGRATION_BOT_USERNAME }} <${{ secrets.WSO2_INTEGRATION_BOT_EMAIL }}>
